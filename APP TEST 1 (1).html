@@ -1,0 +1,2892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ENDUGY APP - ENGLISH EDUCATION ENERGY </title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      height: 100vh;
+      background: #e3f2fd;
+      color: #0d47a1;
+    }
+    .sidebar {
+      width: 220px;
+      background: #1565c0;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      color: #fff;
+    }
+    .sidebar h1 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .sidebar button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.3s;
+    }
+    .sidebar button:hover, .sidebar button.active {
+      background: #0d47a1;
+    }
+
+    /*logo*/
+        .logo {
+      display: flex;
+      align-items: center; /* căn giữa theo chiều dọc */
+      gap: 0px; /* khoảng cách giữa ảnh và chữ */
+    }
+
+    .logo img {
+      display: block;
+      margin-right: 5px;
+    }
+
+    .logo h1 {
+      font-size: 20px; /* tuỳ chỉnh cỡ chữ */
+      margin: 0; /* bỏ margin mặc định */
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+    }
+    .content-section {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      display: none;
+    }
+    .content-section.active {
+      display: block;
+    }
+    .dictionary {
+      width: 300px;
+      background-color: #1565c0;
+      color: white;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+    .word-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .word-item {
+      padding: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+    }
+    .word-item:hover {
+      background-color: #0d47a1;
+    }
+    .quiz-question {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1565c0;
+    }
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+    }
+    .option {
+      background: #bbdefb;
+      margin-bottom: 1rem;
+      padding: 0.9rem 1.3rem;
+      border-radius: 10px;
+      color: #0d47a1;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 5px rgba(21,101,192,0.2);
+    }
+    .option:hover {
+      background: #90caf9;
+      color: #0d47a1;
+    }
+    .option.correct {
+      background: #4caf50 !important;
+      color: #fff;
+      cursor: default;
+      box-shadow: 0 2px 8px rgba(76,175,80,0.8);
+    }
+    .option.incorrect {
+      background: #e53935 !important;
+      color: #fff;
+      cursor: default;
+      box-shadow: 0 2px 8px rgba(229,57,53,0.8);
+    }
+    .feedback {
+      font-size: 1.2rem;
+      font-weight: 600;
+      height: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .btn-next {
+      background: #1565c0;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 15px rgba(21,101,192,0.7);
+    }
+    .btn-next:disabled {
+      background: #90caf9;
+      cursor: not-allowed;
+      box-shadow: none;
+      color: #0d47a1;
+    }
+    .btn-next:hover:not(:disabled) {
+      background: #0d47a1;
+    }
+    .definition-page {
+      padding: 2rem;
+      background: #ffffff;
+      color: #0d47a1;
+      height: 100%;
+      overflow-y: auto;
+    }
+    .definition-page .examples {
+      margin-top: 1rem;
+      background: #f0f0f0;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    #vocab-games {
+      background: #ffffff;
+      color: #0d47a1;
+      padding: 2rem;
+    }
+    .vocab-game-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .game-box {
+      background: #e3f2fd;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .game-box:hover {
+      transform: scale(1.05);
+    }
+    .game-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .game-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .level-box {
+      background: #e3f2fd;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .level-box:hover {
+      transform: scale(1.05);
+    }
+    .level-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .level-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1565c0;
+    }
+    /* Tenses section */
+    .tense-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .tense-title {
+      color: #1565c0;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .tense-formula {
+      background: #e3f2fd;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-family: monospace;
+      margin: 0.5rem 0;
+    }
+    .tense-example {
+      padding: 0.8rem;
+      border-left: 3px solid #1565c0;
+      margin: 0.5rem 0;
+      background: #f5f5f5;
+    }
+    .tense-usage {
+      margin-top: 0.8rem;
+      font-style: italic;
+      color: #555;
+    }
+    .tense-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tense-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #1565c0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+    /* Hiệu ứng kết thúc bài tập */
+    #result-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .result-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      animation: popIn 0.6s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .result-box h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #1565c0;
+    }
+
+    .result-box p {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .result-btn {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #retry-btn {
+      background: #1565c0;
+      color: #fff;
+    }
+    #retry-btn:hover {
+      background: #0d47a1;
+    }
+
+    #exit-btn {
+      background: #e53935;
+      color: #fff;
+    }
+    #exit-btn:hover {
+      background: #b71c1c;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    /* Thanh hỗ trợ mở rộng từ vựng */
+    .top-tab-bar {
+      display: flex;
+      background: #1565c0;
+      overflow-x: auto;
+    }
+    .tab-item {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .tab-item.active {
+      border-bottom: 3px solid #fff;
+    }
+
+    .tab-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+/*Câu*/
+ #sentence {
+      background: #ffffff;
+      color: #0d47a1;
+      padding: 2rem;
+    }
+    .sentence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .sentence-box {
+      background: #e3f2fd;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .sentence-box:hover {
+      transform: scale(1.05);
+    }
+    .sentence-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .sentence-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+  /* Bài Tập AI */
+  .exercise-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .exercise-btn:hover {
+    background: #125ea6;
+  }
+  #exercise-area {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 2rem;
+    overflow-y: auto;
+    display: none; /* ẩn mặc định */
+  }
+
+  #back-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+
+  .question-block {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+
+  /* hộp không gian của phần câu */
+#expression-area .expression-box {
+  background: #e3f2fd;
+  border-radius: 10px;
+  margin-bottom: 1.2rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(21,101,192,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+#expression-area .expression-en {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1976d2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#expression-area .expression-ipa {
+  color: #444;
+  font-style: italic;
+}
+#expression-area .expression-vn {
+  color: #0d47a1;
+}
+
+/**/
+.circle-mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.circle-mark.red {
+  background: #e53935;
+  color: #fff;
+}
+.circle-mark.green {
+  background: #4caf50;
+  color: #fff;
+}
+.mc-option {
+  background: #bbdefb;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  color:#0d47a1;
+}
+.mc-option:hover { background: #90caf9; }
+.mc-option.disabled { pointer-events:none; }
+
+
+/**/
+.cb-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #f0f0f0;
+  transition: all 0.3s ease;
+}
+.cb-card.gray {
+  background: #e0e0e0;
+  color: #555;
+}
+.cb-card.correct {
+  background: #4caf50;
+  color: #fff;
+  cursor: default;
+}
+.cb-card.incorrect {
+  background: #e53935;
+  color: #fff;
+  opacity: 0.5;
+}
+#cb-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cột để chứa 12 ô đẹp */
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/*Flash Card*/ 
+.flashcard {
+  background: #ffeb99;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.flashcard.placeholder {
+  background: #e0e0e0;
+  cursor: pointer;
+}
+.flashcard.placeholder span {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #555;
+}
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 300px;
+}
+.modal-content button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.flashcard {
+  width: 200px;
+  height: 130px;
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Mặt trước */
+.flashcard-front {
+  background: #ffffff;
+  color: #1565c0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+/* Mặt sau */
+.flashcard-back {
+  background: linear-gradient(135deg, #1565c0, #673ab7);
+  color: #fff;
+  transform: rotateY(180deg);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.flashcard-back small {
+  margin-top: 6px;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="logo">
+    <img width="50px" src="https://cdn-icons-gif.flaticon.com/15557/15557778.gif"; >
+    <h1>ENDUGY APP</h1> 
+    </div>
+    
+    <button onclick="showSection('dictionary')" class="active">Từ Điển</button>
+    <button onclick="showSection('vocab-games')">Trò Chơi Từ Vựng</button>
+    <button onclick="showSection('tenses')">Thì</button>
+    <button onclick="showSection('sentence')">Câu</button>
+    <button onclick="showSection('sentence-games')"> Trò Chơi Câu</button>
+    <button onclick="showSection('card')">Flash Card</button>
+    <button onclick="openAccount()">Tài khoản của tôi</button>
+  </div>
+
+
+  <div class="main-content">
+    <div id="dictionary" class="dictionary content-section active">
+      <h2>Từ điển</h2>
+      <div class="search-box" style="display: flex; gap: 0.5rem; align-items: center;">
+        <button id="micBtn" title="Thu âm" style="background: #0d47a1; border: none; color: white; padding: 0.5rem; border-radius: 6px; cursor: pointer;">🎤</button>
+        <input type="text" id="searchInput" placeholder="Tìm từ tiếng Anh..." />
+      </div>
+      <ul class="word-list" id="wordList"></ul>
+    </div>
+
+    <!-- KHÔNG GIAN BÀI TẬP -->
+    <div id="exercise-area" class="hidden">
+      <button id="back-btn" onclick="closeExercise()">←</button>
+      <h2 id="exercise-title"></h2>
+      <div id="exercise-questions"></div>
+    </div>
+
+    <div id="tenses" class="content-section">
+  <h2>English Tenses</h2>
+
+  <!-- Present Simple -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Present Simple</h3>
+      <div class="tense-icon">1</div>
+    </div>
+    <div class="tense-formula">Subject + V1/Vs/es + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> She works at a bank.
+    </div>
+    <div class="tense-usage">
+      Used for habits, general truths, repeated actions <br>
+    <button class="exercise-btn" onclick="generateExercise('Present Simple')">Bài tập</button>
+    </div>
+  </div>
+
+  <!-- Present Continuous -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Present Continuous</h3>
+      <div class="tense-icon">2</div>
+    </div>
+    <div class="tense-formula">Subject + am/is/are + V-ing + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> They are watching TV now.
+    </div>
+    <div class="tense-usage">
+      Used for actions happening now or around now, temporary situations <br>
+      <button class="exercise-btn" onclick="generateExercise('Present Continuous')">Bài tập</button>
+    </div>
+  </div>
+
+  <!-- Present Perfect -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Present Perfect</h3>
+      <div class="tense-icon">3</div>
+    </div>
+    <div class="tense-formula">Subject + have/has + V3 + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> I have seen that movie three times.
+    </div>
+    <div class="tense-usage">
+      Used for experiences, changes, continuing situations <br>
+      <button class="exercise-btn" onclick="generateExercise('Present Perfect')">Bài tập</button>
+    </div>
+  </div>
+
+  <!-- Present Perfect Continuous -->
+<div class="tense-card">
+  <div id="exercise-box"></div>
+  <div class="tense-header">
+    <h3 class="tense-title">Present Perfect Continuous</h3>
+    <div class="tense-icon">4</div>
+  </div>
+  <div class="tense-formula">Subject + have/has been + V-ing + Object</div>
+  <div class="tense-example">
+    <strong>Example:</strong> I have been learning English for five years.
+  </div>
+  <div class="tense-usage">
+    Used for actions continuing from the past until now <br>
+    <button class="exercise-btn" onclick="generateExercise('Present Perfect Continuous')">Bài tập</button>
+    <div class="exercise-buttons">
+  <button class="finish-btn">Hoàn thành</button>
+  <button class="retry-btn" style="display:none;">Làm lại</button>
+</div>
+  </div>
+</div>
+
+  <!-- Past Tenses -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Past Simple</h3>
+      <div class="tense-icon">5</div>
+    </div>
+    <div class="tense-formula">Subject + V2 + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> I went to school yesterday.
+    </div>
+    <div class="tense-usage">
+      Used for completed actions in the past <br>
+      <button class="exercise-btn" onclick="generateExercise('Past Simple')">Bài tập</button>
+    </div>
+  </div>
+
+  <!-- Past Continuous -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Past Continuous</h3>
+      <div class="tense-icon">6</div>
+    </div>
+    <div class="tense-formula">Subject + was/were + V-ing + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> She was cooking when I arrived.
+    </div>
+    <div class="tense-usage">
+      Used for actions in progress at a specific time in the past <br>
+      <button class="exercise-btn" onclick="generateExercise('Past Continuous')">Bài tập</button>
+    </div>
+  </div>
+
+  <!-- Past Perfect -->
+<div class="tense-card">
+  <div id="exercise-box"></div>
+  <div class="tense-header">
+    <h3 class="tense-title">Past Perfect</h3>
+    <div class="tense-icon">7</div>
+  </div>
+  <div class="tense-formula">Subject + had + V3 + Object</div>
+  <div class="tense-example">
+    <strong>Example:</strong> She had finished her homework before dinner.
+  </div>
+  <div class="tense-usage">
+    Used for actions completed before another past action or time <br>
+    <button class="exercise-btn" onclick="generateExercise('Past Perfect')">Bài tập</button>
+  </div>
+</div>
+
+<!-- Past Perfect Continuous -->
+<div class="tense-card">
+  <div id="exercise-box"></div>
+  <div class="tense-header">
+    <h3 class="tense-title">Past Perfect Continuous</h3>
+    <div class="tense-icon">8</div>
+  </div>
+  <div class="tense-formula">Subject + had been + V-ing + Object</div>
+  <div class="tense-example">
+    <strong>Example:</strong> They had been studying for two hours before the break.
+  </div>
+  <div class="tense-usage">
+    Used for ongoing actions before another past action or time <br>
+    <button class="exercise-btn" onclick="generateExercise('Past Perfect Continuous')">Bài tập</button>
+  </div>
+</div>
+
+  <!-- Future Simple -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Future Simple</h3>
+      <div class="tense-icon">9</div>
+    </div>
+    <div class="tense-formula">Subject + will + V1 + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> They will travel to Paris next year.
+    </div>
+    <div class="tense-usage">
+      Used for predictions, promises, future plans <br>
+      <button class="exercise-btn" onclick="generateExercise('Future Simple')">Bài tập</button>
+    </div>
+  </div>
+
+  <!-- Future Continuous -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Future Continuous</h3>
+      <div class="tense-icon">10</div>
+    </div>
+    <div class="tense-formula">Subject + will be + V-ing + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> This time next week, I will be traveling to Japan.
+    </div>
+    <div class="tense-usage">
+      Used for actions that will be in progress at a specific time in the future <br>
+      <button class="exercise-btn" onclick="generateExercise('Future Continuous')">Bài tập</button>
+    </div>
+  </div>
+
+  <!-- Future Perfect -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Future Perfect</h3>
+      <div class="tense-icon">11</div>
+    </div>
+    <div class="tense-formula">Subject + will have + V3 + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> By 2025, I will have graduated from university.
+    </div>
+    <div class="tense-usage">
+      Used for actions that will be completed before a specific time in the future <br>
+      <button class="exercise-btn" onclick="generateExercise('Future Perfect')">Bài tập</button>
+    </div>
+  </div>
+
+  <!-- Future Perfect Continuous -->
+  <div class="tense-card">
+    <div id="exercise-box"></div>
+    <div class="tense-header">
+      <h3 class="tense-title">Future Perfect Continuous</h3>
+      <div class="tense-icon">12</div>
+    </div>
+    <div class="tense-formula">Subject + will have been + V-ing + Object</div>
+    <div class="tense-example">
+      <strong>Example:</strong> By next month, she will have been working here for two years.
+    </div>
+    <div class="tense-usage">
+      Used for actions continuing up to a specific time in the future <br>
+      <button class="exercise-btn" onclick="generateExercise('Future Perfect Continuous')">Bài tập</button>
+    </div>
+  </div>
+</div>
+<!-- Hiệu Ứng Khi Xong Bài Tập-->
+<div id="result-modal">
+  <div class="result-box">
+    <h2>Kết thúc bài tập!</h2>
+    <p id="score-text">Bạn được 0/20 điểm 🎉</p>
+    <button id="retry-btn" class="result-btn">Làm lại</button>
+    <button id="exit-btn" class="result-btn">Thoát</button>
+  </div>
+</div>
+
+<!-- Trò chơi từ vựng -->
+    <div id="vocab-games" class="content-section">
+      <h2>Trò chơi từ vựng</h2>
+      <div class="vocab-game-grid">
+        <div class="game-box">
+          <div class="game-icon"><img src="https://cdn-icons-png.flaticon.com/128/15128/15128933.png"/></div>
+          <div class="game-label">Nhiều lựa chọn</div>      
+        </div> 
+          <div class="game-box" onclick="openGuessWord()">
+          <div class="game-icon"><img src="https://cdn-icons-png.flaticon.com/128/10829/10829660.png"/></div>
+          <div class="game-label">Đoán từ</div>
+        </div>
+        <div class="game-box">
+          <div class="game-icon"><img src="https://cdn-icons-png.flaticon.com/128/14682/14682677.png"/></div>
+          <div class="game-label">Bảng điều khiển</div>
+        </div>
+      </div>
+    </div>
+
+<!--Trò Chơi Nhiều Lựa Chọn-->
+<div id="multiple-choice-area" 
+    style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#fff; z-index:9999; padding:2rem; overflow-y:auto;">
+  <button onclick="closeMultipleChoice()" style="position:absolute;top:18px;left:18px;font-size:1.5rem;background:none;border:none;cursor:pointer;">
+    <img src="https://cdn-icons-png.flaticon.com/128/25/25409.png" alt="Back" style="width:28px;height:28px;vertical-align:middle;">
+  </button>
+  <h2 style="margin-left:2.5rem;">Trò chơi nhiều lựa chọn</h2>
+  <div id="mc-question" 
+  style="font-size:1.5rem; margin:2rem 0; font-weight:bold; color:#1565c0; text-align:center;"></div>
+  <div id="mc-options"></div>
+  <div style="margin-top:1.5rem;">
+    <button id="mc-retry" class="btn-next" style="display:none; margin-right:10px;" onclick="retryQuestion()">Lặp lại</button>
+    <button id="mc-next" class="btn-next" style="display:none;" onclick="nextQuestion()">Tiếp theo</button>
+  </div>
+</div>
+
+<!-- ĐOÁN TỪ -->
+<div id="guess-word-area" 
+     style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#fff; z-index:9999; padding:2rem; overflow-y:auto;">
+  <button onclick="closeGuessWord()" style="position:absolute;top:18px;left:18px;font-size:1.5rem;background:none;border:none;cursor:pointer;">
+    <img src="https://cdn-icons-png.flaticon.com/128/25/25409.png" alt="Back" style="width:28px;height:28px;vertical-align:middle;">
+  </button>
+  <h2 style="margin-left:2.5rem;">Trò chơi đoán từ</h2>
+  <div id="gw-question" style="font-size:1.5rem; margin:2rem 0; font-weight:bold; color:#1565c0; text-align:center;"></div>
+  <div id="gw-options"></div>
+  <div style="margin-top:1.5rem; text-align:center;">
+    <button id="gw-retry" class="btn-next" style="display:none; margin-right:10px;" onclick="retryGuessWord()">Lặp lại</button>
+    <button id="gw-next" class="btn-next" style="display:none;" onclick="nextGuessWord()">Tiếp theo</button>
+  </div>
+</div>
+
+<!--Bảng đoán từ-->
+<div id="control-board-area" 
+     style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#fff; z-index:9999; padding:2rem; overflow-y:auto;">
+  <button onclick="closeControlBoard()" style="position:absolute;top:18px;left:18px;font-size:1.5rem;background:none;border:none;cursor:pointer;">
+    <img src="https://cdn-icons-png.flaticon.com/128/25/25409.png" alt="Back" style="width:28px;height:28px;vertical-align:middle;">
+  </button>
+  <h2 style="margin-left:2.5rem;">Trò chơi bảng điều khiển</h2>
+  <div id="cb-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;"></div>
+  <div id="cb-pronunciation" style="text-align:center;font-size:1.2rem;color:#1565c0;margin-top:1.5rem;"></div>
+  <div id="cb-actions" style="display:none; text-align:center; margin-top:1.5rem;">
+  <button onclick="repeatControlBoard()" 
+    style="padding:0.5rem 1rem; margin-right:10px; border:none; border-radius:6px; background:#2196f3; color:#fff; cursor:pointer;">
+    🔁 Lặp lại
+  </button>
+  <button onclick="nextControlBoard()" 
+    style="padding:0.5rem 1rem; border:none; border-radius:6px; background:#4caf50; color:#fff; cursor:pointer;">
+    ⏭ Tiếp theo
+  </button>
+</div>
+</div>
+
+    <!-- Tài khoản của tôi-->
+    <div id="account" class="content-section">
+  <h2>Đăng nhập / Đăng ký</h2>
+
+  <form id="registerForm" style="display:none; margin-top:1rem;">
+    <input type="text" id="fullname" placeholder="Họ và tên" required><br><br>
+    <input type="text" id="nickname" placeholder="Nickname" required><br><br>
+    <input type="password" id="password" placeholder="Mật khẩu" required><br><br>
+    <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu" required><br><br>
+    <button type="button" onclick="register()">Đăng ký</button>
+    <p>Bạn đã có tài khoản? 
+      <a href="#" onclick="toggleForms('login')">Đăng nhập</a>
+    </p>
+  </form>
+
+  <form id="loginForm" style="margin-top:1rem;">
+    <input type="text" id="loginNickname" placeholder="Nickname" required><br><br>
+    <input type="password" id="loginPassword" placeholder="Mật khẩu" required><br><br>
+    <button type="button" onclick="login()">Đăng nhập</button>
+    <p>Chưa có tài khoản? 
+      <a href="#" onclick="toggleForms('register')">Đăng ký</a>
+    </p>
+  </form>
+</div>
+
+    <div id="level" class="content-section">
+  <h2>Khóa học của tôi</h2>
+  <button onclick="logout()" style="margin:10px 0; padding:8px 12px; background:#e53935; color:#fff; border:none; border-radius:6px; cursor:pointer;">
+    Đăng xuất
+  </button>
+  <div class="level-grid">
+        <div class="level-box">
+          <div class="level-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/4217/4217979.png"/>
+          </div>
+          <div class="level-label">Tiến trình</div>
+        </div>
+
+        <div class="level-box">
+          <div class="level-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/1362/1362090.png"/>
+          </div>
+          <div class="level-label">Lỗi sai hay gặp</div>
+        </div>
+
+        <div class="level-box">
+          <div class="level-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/5402/5402323.png"/>
+          </div>
+          <div class="level-label">Từ vựng đã học</div>
+        </div>
+
+        <div class="level-box">
+          <div class="level-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/3135/3135722.png"/>
+          </div>
+          <div class="level-label">Thành tựu</div>
+        </div>
+
+        <div class="level-box">
+          <div class="level-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/3330/3330300.png"/>
+          </div>
+          <div class="level-label">Bài học</div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- Thanh hỗ trợ mở rộng từ vựng -->
+    <div id="definitionPage" class="definition-page content-section">
+  <div class="top-tab-bar">
+    <button class="tab-item active" data-tab="vi">ANH - VIỆT</button>
+    <button class="tab-item" data-tab="grammar">NGỮ PHÁP</button>
+    <button class="tab-item" data-tab="en">ĐỒNG NGHĨA/TRÁI NGHĨA</button> 
+    <button class="tab-item" data-tab="field">GIẢI NGHĨA</button>
+  </div>
+
+  <!-- ANH - VIỆT -->
+  <div id="tab-vi" class="tab-content">
+    <h2 id="wordMeaning">Meaning</h2>
+    <p id="wordPronunciation">Pronunciation:</p>
+    <p id="wordLevel">Level:</p>
+    <div id="wordExamples" class="examples">Examples:</div>
+    <button onclick="goBack()">Quay lại</button>
+  </div>
+
+  <!-- Các tab khác -->
+  <div id="tab-grammar" class="tab-content" style="display: none;">
+  <h3>Ngữ pháp</h3>
+
+  <!-- Family Words -->
+  <h4>Family Words</h4>
+  <ul>
+    <li>Noun: <span id="familyNoun"></span></li>
+    <li>Verb: <span id="familyVerb"></span></li>
+    <li>Adjective: <span id="familyAdjective"></span></li>
+    <li>Adverb: <span id="familyAdverb"></span></li>
+  </ul>
+
+  <!-- Tenses -->
+  <h4>Tenses</h4>
+  <ul>
+    <li>Present Simple: <span id="presentSimple"></span></li>
+    <li>Past Simple: <span id="pastSimple"></span></li>
+    <li>Future Simple: <span id="futureSimple"></span></li>
+    <li>Present Continuous: <span id="presentContinuous"></span></li>
+    <li>Past Continuous: <span id="pastContinuous"></span></li>
+    <li>Future Continuous: <span id="futureContinuous"></span></li>
+    <li>Present Perfect: <span id="presentPerfect"></span></li>
+    <li>Past Perfect: <span id="pastPerfect"></span></li>
+    <li>Future Perfect: <span id="futurePerfect"></span></li>
+  </ul>
+</div>
+
+  <div id="tab-en" class="tab-content" style="display: none;">
+    <h3>Đồng nghĩa/Trái nghĩa</h3> 
+    <div id="synonyms-content">Chọn từ để xem đồng nghĩa/trái nghĩa.</div>
+</div>
+
+  <div id="tab-field" class="tab-content" style="display: none;">
+    <h3>GIẢI NGHĨA</h3>
+    <div id="specialized-content">Chọn từ để xem giải nghĩa.</div> 
+  </div>
+</div>
+
+<!--CÂU-->
+<div id="expression-area" style="display:none; position:fixed; top:0; left:220px; width:calc(100vw - 220px); height:100vh; background:#fff; box-shadow:none; z-index:9999; overflow-y:auto; padding:2rem;">
+  <button onclick="closeExpression()" style="position:absolute;top:18px;left:18px;font-size:1.5rem;background:none;border:none;cursor:pointer;">
+    <img src="https://cdn-icons-png.flaticon.com/128/25/25409.png" alt="Back" style="width:28px;height:28px;vertical-align:middle;">
+  </button>
+  <h2 style="margin-left:2.2rem;">Biểu hiện tiếng Anh thông dụng</h2>
+  <div id="expression-list"></div>
+</div>
+
+<div id="sentence" class="content-section"> 
+      <h2>Câu</h2>
+     <div class="sentence-grid">
+        <div class="sentence-box" onclick="showExpressions('Biểu hiện')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/3715/3715830.png"/>
+          </div>
+          <div class="sentence-label">Biểu hiện</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Cơ thể và sức khỏe')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/17683/17683051.png"/>
+          </div>
+          <div class="sentence-label">Cơ thể và sức khỏe</div>
+        </div>
+        
+       <div class="sentence-box" onclick="showExpressions('Gia đình')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/437/437522.png" />
+          </div> 
+          <div class="sentence-label">Gia đình</div>
+      </div>
+
+        <div class="sentence-box" onclick="showExpressions('Thức ăn')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/562/562678.png"/>
+          </div>
+          <div class="sentence-label">Thức ăn</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Nhà')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/2413/2413074.png"/>
+          </div>
+          <div class="sentence-label">Nhà</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Địa điểm')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/535/535239.png"/>
+          </div>
+          <div class="sentence-label">Địa điểm</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Câu hỏi')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/942/942802.png"/>
+          </div>
+          <div class="sentence-label">Câu hỏi</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Mua sắm')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/3081/3081415.png"/>
+          </div>
+          <div class="sentence-label">Mua sắm</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Thể thao')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/4163/4163679.png"/>
+          </div>
+          <div class="sentence-label">Thể thao</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Nghiên cứu')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/5531/5531648.png"/>
+          </div>
+          <div class="sentence-label">Nghiên cứu</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Vận chuyển')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/17865/17865314.png"/>
+          </div>
+          <div class="sentence-label">Vận chuyển</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Du lịch')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/5333/5333434.png"/>
+          </div>
+          <div class="sentence-label">Du lịch</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Thời tiết')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/3406/3406977.png"/>
+          </div>
+          <div class="sentence-label">Thời tiết</div>
+        </div>
+
+        <div class="sentence-box" onclick="showExpressions('Công việc')">
+          <div class="sentence-icon">
+          <img src="https://cdn-icons-png.flaticon.com/128/3150/3150573.png"/>
+          </div>
+          <div class="sentence-label">Công việc</div>
+        </div>
+      </div>
+    </div>
+
+    <!--Flash Card-->
+    <div id="card" class="content-section">
+  <h2>Flash Card</h2>
+  <div id="flashcard-container" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;"></div>
+</div>
+
+<div id="sentence-games" class="content-section" style="margin:0; padding:0;">
+  <iframe 
+    src="filling-game.html" 
+    style="width:100%; height:100vh; border:none; margin:0; display:block;">
+  </iframe>
+</div>
+
+
+
+  <script>
+  /*Từ vựng*/
+    const vocabulary = [
+      { eng: 'Good morning', vn: 'Chào buổi sáng', pronunciation: '/ˌɡʊd ˈmɔː.nɪŋ/ interjection', level: 'A1', examples: ['Good morning, how are you today?'] },
+      { eng: 'Good afternoon', vn: 'Chào buổi chiều', pronunciation: '/ˌɡʊd ˌɑːf.təˈnuːn/ interjection', level: 'A1', examples: ['Good afternoon, everyone.'] },
+      { eng: 'Good evening', vn: 'Chào buổi tối', pronunciation: '/ˌɡʊd ˈiːv.nɪŋ/ interjection', level: 'A1', examples: ['Good evening! Did you have a good day?'] },
+      { eng: 'Hello', vn: 'Xin chào, chào', pronunciation: '/heˈləʊ/ interjection, noun', level: 'A1', examples: ['Hello, my friend!', 'Say hello to your mom for me.'] },
+      { eng: 'Hi', vn: 'Xin chào, chào', pronunciation: '/haɪ/ interjection', level: 'A1', examples: ['Hi, how are you?', 'Hi there!'] },
+      { eng: 'Welcome', vn: 'Xin mời vào, chào mừng', pronunciation: '/ˈwelkəm/ interjection', level: 'A1', examples: ['Welcome to our home.', 'Welcome back!'] },
+      { eng: 'House', vn: 'Nhà ở, căn nhà', pronunciation: '/haʊs/ noun', level: 'A1', examples: ['My house has two bedrooms.', 'They live in a big house.'] },
+      { eng: 'Home', vn: 'Nhà ở, tổ ấm', pronunciation: '/həʊm/ noun', level: 'A1', examples: ['She is at home now.', 'I feel safe at home.'] },
+      { eng: 'Room', vn: 'Phòng', pronunciation: '/ruːm/ noun', level: 'A1', examples: ['This is my favorite room.', 'How many rooms are in your house?'] },
+      { eng: 'Living room', vn: 'Phòng khách', pronunciation: '/ˈlɪvɪŋ ruːm/ noun', level: 'A1', examples: ['We watch TV in the living room.', 'The living room is big.'] },
+      { eng: 'Bathroom', vn: 'Phòng tắm', pronunciation: '/ˈbɑːθruːm/ noun', level: 'A1', examples: ['The bathroom is clean.', 'He is in the bathroom.'] },
+      { eng: 'Bedroom', vn: 'Phòng ngủ', pronunciation: '/ˈbedruːm/ noun', level: 'A1', examples: ['This is my bedroom.', 'Her bedroom is pink.'] },
+      { eng: 'Dining room', vn: 'Phòng ăn', pronunciation: '/ˈdaɪnɪŋ ruːm/ noun', level: 'A1', examples: ['We have dinner in the dining room.', 'The dining room has a big table.'] },
+      { eng: 'Kitchen', vn: 'Nhà bếp', pronunciation: '/ˈkɪtʃɪn/ noun', level: 'A1', examples: ['I cook in the kitchen.', 'The kitchen is small.'] },
+      { eng: 'Library', vn: 'Thư viện tại gia', pronunciation: '/ˈlaɪbrəri/ noun', level: 'A1', examples: ['She studies in the library.', 'This library has many books.'] },
+      { eng: 'Office', vn: 'Phòng làm việc', pronunciation: '/ˈɒfɪs/ noun', level: 'A1', examples: ['He works in his home office.', 'My office is quiet.'] },
+      { eng: 'Sofa', vn: 'Ghế sofa', pronunciation: '/ˈsəʊfə/ noun', level: 'A1', examples: ['She is sitting on the sofa.', 'This sofa is comfortable.'] },
+      { eng: 'Bed', vn: 'Giường', pronunciation: '/bed/ noun', level: 'A1', examples: ['I sleep on the bed.', 'The bed is soft.'] },
+      { eng: 'Chair', vn: 'Ghế', pronunciation: '/tʃeə(r)/ noun', level: 'A1', examples: ['He sat on the chair.', 'The chair is made of wood.'] },
+      { eng: 'Table', vn: 'Bàn', pronunciation: '/ˈteɪbl/ noun', level: 'A1', examples: ['The books are on the table.', 'We eat at the table.'] },
+      { eng: 'Desk', vn: 'Bàn làm việc', pronunciation: '/desk/ noun', level: 'A1', examples: ['Her desk is clean.', 'I study at my desk.'] },
+      { eng: 'Picture', vn: 'Tranh ảnh', pronunciation: '/ˈpɪktʃə(r)/ noun', level: 'A1', examples: ['There is a picture on the wall.', 'She painted this picture.'] },
+      { eng: 'Window', vn: 'Cửa sổ', pronunciation: '/ˈwɪndəʊ/ noun', level: 'A1', examples: ['The window is open.', 'I can see outside through the window.'] },
+      { eng: 'Door', vn: 'Cửa ra vào', pronunciation: '/dɔːr/ noun', level: 'A1', examples: ['Please close the door.', 'The door is red.'] },
+      { eng: 'Floor', vn: 'Sàn nhà', pronunciation: '/flɔːr/ noun', level: 'A1', examples: ['The floor is made of wood.', 'She cleaned the floor.'] },
+      { eng: 'Roof', vn: 'Mái nhà', pronunciation: '/ruːf/ noun', level: 'A1', examples: ['The roof is blue.', 'They fixed the roof yesterday.'] },
+      { eng: 'Garden', vn: 'Vườn, khu vườn', pronunciation: '/ˈɡɑːdn/ noun', level: 'A1', examples: ['The garden has many flowers.', 'We play in the garden.'] },
+      { eng: 'Beat', vn: 'thắng, đánh bại', pronunciation: '/biːt/ v', level: 'B1', examples: ['He beat me at chess.'] },
+      { eng: 'Board game', vn: 'trò chơi trên bàn cờ', pronunciation: '/ˈbɔːd ɡeɪm/ np', level: 'B1', examples: ['Every Sunday we play Monopoly or some other board game.'] },
+      { eng: 'Captain', vn: 'đội trưởng, thuyền trưởng', pronunciation: '/ˈkæptɪn/ n', level: 'B1', examples: ['The captain gave the order to abandon ship.'] },
+      { eng: 'Challenge', vn: 'thách thức, sự thách thức', pronunciation: '/ˈtʃælɪndʒ/ v, n', level: 'B1', examples: ["The job doesn't really challenge her."] },
+      { eng: 'Champion', vn: 'quán quân', pronunciation: '/ˈtʃæmpiən/ n', level: 'B1', examples: ['He became the youngest US Open champion for 88 years.'] },
+      { eng: 'Cheat', vn: 'lừa, gian lận', pronunciation: '/tʃiːt/ v', level: 'B1', examples: ['She is accused of attempting to cheat the taxman.'] },
+      { eng: 'Classical', vn: 'cổ điển', pronunciation: '/ˈklæsɪkl/ adj', level: 'B1', examples: ['Both Bach and Beethoven wrote classical music.'] },
+      { eng: 'Classical', vn: 'cổ điển', pronunciation: '/ˈklæsɪkl/ adj', level: 'B1', examples: ['Both Bach and Beethoven wrote classical music.'] },
+      { eng: 'Club', vn: 'câu lạc bộ', pronunciation: '/klʌb/ n', level: 'A2', examples: ['They belong to the same golf club.'] },
+      { eng: 'Coach', vn: 'huấn luyện viên', pronunciation: '/kəʊtʃ/ n', level: 'A2', examples: ['He is a former college football coach.'] },
+      { eng: 'Competition', vn: 'cuộc thi đấu', pronunciation: '/ˌkɒmpəˈtɪʃn/ n', level: 'A2', examples: ['Hundreds of schools entered the competition.'] },
+      { eng: 'Concert', vn: 'buổi hòa nhạc', pronunciation: '/ˈkɒnsət/ n', level: 'A2', examples: ['The orchestra gave a concert in Miami in January.'] },
+      { eng: 'Defeat', vn: 'đánh bại', pronunciation: '/dɪˈfiːt/ v', level: 'B1', examples: ['It was said that he could not be defeated in battle.'] },
+      { eng: 'Entertaining', vn: 'giải trí', pronunciation: '/ˌentəˈteɪnɪŋ/ adj', level: 'B1', examples: ['I found the talk both informative and entertaining.'] },
+      { eng: 'Group', vn: 'nhóm', pronunciation: '/ɡruːp/ n', level: 'A1', examples: ['A group of us are going to the theatre this evening.'] },
+      { eng: 'Gym', vn: 'phòng tập thể dục', pronunciation: '/dʒɪm/ n', level: 'A1', examples: ['The school has recently built a new gym.'] },
+      { eng: 'Interest', vn: 'sự thích thú', pronunciation: '/ˈɪntrəst/ v, n', level: 'A2', examples: ['Do your parents take an interest in your friends?'] },
+      { eng: 'Member', vn: 'thành viên', pronunciation: '/ˈmembər/ n', level: 'A1', examples: ['He is an important member of our team.'] },
+      { eng: 'Opponent', vn: 'đối thủ', pronunciation: '/əˈpəʊnənt/ n', level: 'B1', examples: ['He has knocked out 15 opponents in 20 fights.'] },
+      { eng: 'Organise', vn: 'sắp xếp, tổ chức', pronunciation: '/ˈɔːɡənaɪz/ v', level: 'A2', examples: ['He helped to organize various events.'] },
+      { eng: 'Pleasure', vn: 'niềm vui', pronunciation: '/ˈpleʒər/ n', level: 'B1', examples: ['Children find endless pleasure in playing with water.'] },
+      { eng: 'Referee', vn: 'trọng tài', pronunciation: '/ˌrefəˈriː/ n', level: 'B1', examples: ['He was sent off for arguing with the referee.'] },
+      { eng: 'Rhythm', vn: 'nhịp, âm tiết', pronunciation: '/ˈrɪðəm/ n', level: 'B1', examples: ['I listened to the steady rhythm of her breathing.'] },
+      { eng: 'Risk', vn: 'rủi ro', pronunciation: '/rɪsk/ v, n', level: 'B1', examples: ['He risked his life to save her.'] },
+      { eng: 'Score', vn: 'ghi điểm, điểm số', pronunciation: '/skɔːr/ v, n', level: 'A2', examples: ['He scored 20 points in 36 minutes.'] },
+      { eng: 'Support', vn: 'hỗ trợ, ủng hộ, sự ủng hộ', pronunciation: '/səˈpɔːt/ v, n', level: 'A2', examples: ["If you raise it at the meeting, I'll support you."] },
+      { eng: 'Team', vn: 'đội', pronunciation: '/tiːm/ n', level: 'A1', examples: ['They play volleyball for the national team.'] },
+      { eng: 'Train', vn: 'huấn luyện, đào tạo', pronunciation: '/treɪn/ v', level: 'A2', examples: ['All members of the team have trained in first aid.'] },
+      { eng: 'Fun', vn: 'vui, trò vui', pronunciation: '/fʌn/ n', level: 'A1', examples: ["We had a lot of fun at Sarah's party."] },
+      { eng: 'Carry on', vn: 'tiếp tục', pronunciation: '/ˈkæri ɒn/ v', level: 'B1', examples: ['Carry on until you get to the junction, then turn left.'] },
+      { eng: 'Eat out', vn: 'ăn ngoài (ở nhà hàng)', pronunciation: '/iːt aʊt/ v', level: 'A2', examples: ['Do you feel like eating out tonight?'] },
+      { eng: 'Give up', vn: 'từ bỏ', pronunciation: '/ɡɪv ʌp/ v', level: 'B1', examples: ['They gave up without a fight.'] },
+      { eng: 'Join in', vn: 'tham gia', pronunciation: '/dʒɔɪn ɪn/ v', level: 'B1', examples: ['She listens but she never joins in.'] },
+      { eng: 'Send off', vn: 'đuổi ra khỏi sân chơi', pronunciation: '/send ɒf/ v', level: 'B1', examples: ['Bale was sent off for a foul in the second half.'] },
+      { eng: 'Take up', vn: 'bắt đầu một sở thích', pronunciation: '/teɪk ʌp/ v', level: 'B1', examples: ["They've taken up golf."] },
+      { eng: 'Turn down', vn: 'giảm âm lượng', pronunciation: '/tɜːn daʊn/ v', level: 'A2', examples: ['Please turn the volume down.'] },
+      { eng: 'Turn up', vn: 'tăng âm lượng', pronunciation: '/tɜːn ʌp/ v', level: 'A2', examples: ['Please turn the volume up.'] },
+      { eng: 'For a long time', vn: 'lâu, rất lâu', pronunciation: '/fɔːr ə lɒŋ taɪm/', level: 'A2', examples: ['I have been waiting for a long time.'] },
+      { eng: 'For fun', vn: 'cho vui, không nghiêm túc', pronunciation: '/fɔːr fʌn/', level: 'A2', examples: ['I just work for fun.'] },
+      { eng: 'In the middle (of)', vn: 'ở giữa cái gì', pronunciation: '/ɪn ðə ˈmɪdl ɒv/', level: 'A2', examples: ['Her car was stuck in the middle of the road.'] },
+      { eng: 'In time (for)', vn: 'đúng giờ', pronunciation: '/ɪn taɪm fɔːr/', level: 'B1', examples: ["Will we be in time for the six o'clock train?"] },
+      { eng: 'On CD/DVD/video', vn: 'trên đĩa CD, video', pronunciation: '/ɒn ˌsiːˈdiː, ˌdiːviːˈdiː, ˈvɪdiəʊ/', level: 'A2', examples: ['The robbery was captured on video.'] },
+      { eng: 'On stage', vn: 'trên sân khấu', pronunciation: '/ɒn steɪdʒ/', level: 'A2', examples: ['There were more than 50 people on stage in one scene.'] },
+      { eng: 'On the stage', vn: 'trở thành diễn viên', pronunciation: '/ɒn ðə steɪdʒ/', level: 'B1', examples: ['Her daughter is an artist and her son is on the stage.'] },
+      { eng: 'At the end of', vn: 'vào cuối của cái gì', pronunciation: '/æt ði end ɒv/', level: 'A2', examples: ['At the end of the day, we all want to be happy.'] },
+      { eng: 'At first', vn: 'lúc đầu', pronunciation: '/æt fɜːst/', level: 'A2', examples: ['At first, I didn’t like it, but now I love it.'] },
+      { eng: 'At last', vn: 'cuối cùng', pronunciation: '/æt lɑːst/', level: 'A2', examples: ['At last, we have some good news!'] },
+      { eng: 'In a way', vn: 'theo một cách nào đó', pronunciation: '/ɪn ə weɪ/', level: 'B1', examples: ['In a way, I agree with you.'] },
+      { eng: 'In my opinion', vn: 'theo ý kiến của tôi', pronunciation: '/ɪn maɪ əˈpɪnjən/', level: 'A2', examples: ['In my opinion, this is the best solution.'] },
+      { eng: 'In public', vn: 'trước công chúng', pronunciation: '/ɪn ˈpʌblɪk/', level: 'A2', examples: ['He never speaks in public.'] },
+      { eng: 'In private', vn: 'riêng tư, không công khai', pronunciation: '/ɪn ˈpraɪvət/', level: 'B1', examples: ['She prefers to discuss matters in private.'] },
+      { eng: 'In the end', vn: 'cuối cùng', pronunciation: '/ɪn ði end/', level: 'A2', examples: ['In the end, we decided to go.'] },
+      { eng: 'On purpose', vn: 'cố ý', pronunciation: '/ɒn ˈpɜːpəs/', level: 'B1', examples: ['Did you do that on purpose?'] },
+      { eng: 'Out of date', vn: 'hết hạn, lỗi thời', pronunciation: '/aʊt ɒv deɪt/', level: 'B1', examples: ['This information is out of date.'] },
+      { eng: 'Out of order', vn: 'hỏng, không hoạt động', pronunciation: '/aʊt ɒv ˈɔːdə(r)/', level: 'B1', examples: ['The lift is out of order.'] },
+      { eng: 'Out of practice', vn: 'không còn thực hành, không còn luyện tập nữa', pronunciation: '/aʊt ɒv ˈpræktɪs/', level: 'B1', examples: ['I’m a bit out of practice at tennis.'] },
+      { eng: 'Out of work', vn: 'thất nghiệp, không có việc làm', pronunciation: '/aʊt ɒv wɜːk/', level: 'B1', examples: ['He has been out of work for six months.'] },
+      { eng: 'Take it easy', vn: 'thư giãn, nghỉ ngơi', pronunciation: '/teɪk ɪt ˈiːzi/', level: 'A2', examples: ['You should take it easy for a few days.'] },
+      { eng: 'Take it in turns (to do something)', vn: 'lần lượt làm gì đó', pronunciation: '/teɪk ɪt ɪn tɜːnz tə duː ˈsʌmθɪŋ/', level: 'B1', examples: ['We take it in turns to cook dinner.'] },
+      { eng: 'Take it or leave it', vn: 'nhận lấy hoặc không', pronunciation: '/teɪk ɪt ɔː liːv ɪt/', level: 'B1', examples: ['This is my final offer, take it or leave it.'] },
+      { eng: 'Take notice of', vn: 'chú ý đến', pronunciation: '/teɪk ˈnəʊtɪs ɒv/', level: 'B1', examples: ['You should take notice of the warning signs.'] },
+      { eng: 'Take part in', vn: 'tham gia vào', pronunciation: '/teɪk pɑːt ɪn/', level: 'A2', examples: ['She wants to take part in the competition.'] },
+      { eng: 'Take place', vn: 'diễn ra, xảy ra', pronunciation: '/teɪk pleɪs/', level: 'A2', examples: ['The meeting will take place next week.'] },
+      { eng: 'Take time off (work)', vn: 'nghỉ làm việc một thời gian', pronunciation: '/teɪk taɪm ɒf wɜːk/', level: 'B1', examples: ['I need to take some time off work.'] },
+      { eng: 'Take turns (to do something)', vn: 'lần lượt làm gì đó', pronunciation: '/teɪk tɜːnz tə duː ˈsʌmθɪŋ/', level: 'B1', examples: ['We take turns to cook dinner.'] },
+      { eng: 'Take up a hobby', vn: 'bắt đầu một sở thích mới', pronunciation: '/teɪk ʌp ə ˈhɒbi/', level: 'B1', examples: ['I want to take up a new hobby this year.'] },
+      { eng: 'Take up time', vn: 'chiếm thời gian', pronunciation: '/teɪk ʌp taɪm/', level: 'B1', examples: ['This task takes up too much time.'] },
+      { eng: 'Take your time', vn: 'dành thời gian của bạn, không vội vàng', pronunciation: '/teɪk jɔː taɪm/', level: 'A2', examples: ['Take your time, there’s no rush.'] },
+      { eng: 'Take your time (doing something)', vn: 'dành thời gian làm gì đó', pronunciation: '/teɪk jɔː taɪm duːɪŋ ˈsʌmθɪŋ/', level: 'B1', examples: ['Take your time doing the homework.'] },
+      { eng: 'Take your time to do something', vn: 'dành thời gian để làm gì đó', pronunciation: '/teɪk jɔː taɪm tə duː ˈsʌmθɪŋ/', level: 'B1', examples: ['Take your time to finish the project.'] },
+      { eng: 'Take your time with something', vn: 'dành thời gian với cái gì đó', pronunciation: '/teɪk jɔː taɪm wɪð ˈsʌmθɪŋ/', level: 'B1', examples: ['Take your time with the presentation.'] },
+      { eng: 'Bored with', vn: 'chán với', pronunciation: '/bɔːd wɪð/', level: 'A2', examples: ['I am bored with the lesson.'] },
+      { eng: 'Crazy about', vn: 'say mê, cuồng', pronunciation: '/ˈkreɪzi əˌbaʊt/', level: 'A2', examples: ['She is crazy about pop music.'] },
+      { eng: 'Good at', vn: 'giỏi về', pronunciation: '/ɡʊd æt/', level: 'A2', examples: ['They are good at English.'] },
+      { eng: 'Interested in', vn: 'thích thú', pronunciation: '/ˈɪntrəstɪd ɪn/', level: 'A2', examples: ['He is interested in science.'] },
+      { eng: 'Keen on', vn: 'say mê', pronunciation: '/kiːn ɒn/', level: 'B1', examples: ['I am keen on playing volleyball.'] },
+      { eng: 'Popular with', vn: 'phổ biến với', pronunciation: '/ˈpɒpjələ wɪð/', level: 'B1', examples: ['This area is immensely popular with tourists.'] },
+      { eng: 'Feel like', vn: 'thích, thèm', pronunciation: '/fiːl laɪk/', level: 'A2', examples: ['We feel like going to the supermarket.'] },
+      { eng: 'Listen to', vn: 'lắng nghe', pronunciation: '/ˈlɪsn tuː/', level: 'A1', examples: ['I am listening to classical music.'] },
+      { eng: 'Take part in', vn: 'tham gia vào', pronunciation: '/teɪk pɑːt ɪn/', level: 'B1', examples: ['They took part in the singing competition.'] },
+      { eng: 'A book (by sb) about', vn: 'sách của ai viết về', pronunciation: '/ə bʊk baɪ ˈsʌmbədi əˈbaʊt/', level: 'B1', examples: ["He has written a book about the island's rich history."] },
+      { eng: 'A fan of', vn: 'người hâm mộ', pronunciation: '/ə fæn ɒv/', level: 'A2', examples: ["I'm a big fan of her books."] },
+      { eng: 'A game against', vn: 'trận đấu với', pronunciation: '/ə ɡeɪm əˈɡenst/', level: 'B1', examples: ['The match against Swansea is on Saturday.'] },
+      { eng: 'A match between', vn: 'trận đấu giữa', pronunciation: '/ə mætʃ bɪˈtwiːn/', level: 'B1', examples: ['The match between the two teams was exciting.'] },
+      { eng: 'A song by sb about', vn: 'bài hát của ai về', pronunciation: '/ə sɒŋ baɪ ˈsʌmbədi əˈbaʊt/', level: 'B1', examples: ['She sang a song about love.'] },
+      { eng: 'A story about', vn: 'câu chuyện về', pronunciation: '/ə ˈstɔːri əˈbaʊt/', level: 'A2', examples: ['He told a story about his childhood.'] },
+      { eng: 'A video of', vn: 'video về', pronunciation: '/ə ˈvɪdiəʊ əv/', level: 'B1', examples: ['I watched a video of the concert.'] },
+      { eng: 'Be good for you', vn: 'tốt cho bạn', pronunciation: '/bi ɡʊd fɔː jʊ/', level: 'B1', examples: ['Exercise is good for you.'] },
+      { eng: 'Be interested in sth/sb/doing sth', vn: 'quan tâm đến cái gì/ai/làm gì đó', pronunciation: '/bi ˈɪntrəstɪd ɪn ˈsʌmθɪŋ/ˈsʌmbədi/duːɪŋ ˈsʌmθɪŋ/', level: 'B1', examples: ['I am interested in learning new languages.'] },
+      { eng: 'Be keen to do sth', vn: 'rất muốn làm gì đó', pronunciation: '/bi kiːn tə duː ˈsʌmθɪŋ/', level: 'B1', examples: ['She is keen to join the club.'] },
+      { eng: 'Be popular with sb', vn: 'được yêu thích bởi ai đó', pronunciation: '/bi ˈpɒpjələ wɪð ˈsʌmbədi/', level: 'B1', examples: ['This restaurant is popular with locals.'] },
+      { eng: 'Be tired of sth/sb/doing sth', vn: 'chán ngấy cái gì/ai/làm gì đó', pronunciation: '/bi taɪəd ɒv ˈsʌmθɪŋ/ˈsʌmbədi/duːɪŋ ˈsʌmθɪŋ/', level: 'B1', examples: ['I am tired of waiting for him.'] },
+      { eng: 'Be worried about sth/sb/doing sth', vn: 'lo lắng về cái gì/ai/làm gì đó', pronunciation: '/bi ˈwʌrid əˈbaʊt ˈsʌmθɪŋ/ˈsʌmbədi/duːɪŋ ˈsʌmθɪŋ/', level: 'B1', examples: ['She is worried about her exam results.'] },
+      { eng: 'Be worth doing sth', vn: 'đáng làm gì đó', pronunciation: '/bi wɜːθ duːɪŋ ˈsʌmθɪŋ/', level: 'B1', examples: ['This book is worth reading.'] },
+      { eng: 'Be worth it', vn: 'đáng giá, xứng đáng', pronunciation: '/bi wɜːθ ɪt/', level: 'B1', examples: ['The effort was worth it.'] },
+      { eng: 'Be worth something to sb', vn: 'có giá trị với ai đó', pronunciation: '/bi wɜːθ ˈsʌmθɪŋ tə ˈsʌmbədi/', level: 'B1', examples: ['This painting is worth a lot to me.'] },
+      { eng: 'Be worth the money', vn: 'đáng giá tiền bỏ ra', pronunciation: '/bi wɜːθ ðə ˈmʌni/', level: 'B1', examples: ['This product is worth the money.'] },
+      { eng: 'Be worth the price', vn: 'đáng giá với giá tiền', pronunciation: '/bi wɜːθ ðə praɪs/', level: 'B1', examples: ['This service is worth the price.'] },
+      { eng: 'Be worth your while', vn: 'đáng để bạn bỏ thời gian, công sức', pronunciation: '/bi wɜːθ jɔː waɪl/', level: 'B1', examples: ['It will be worth your while to attend the seminar.'] },
+      { eng: 'Be worth your time', vn: 'đáng để bạn bỏ thời gian', pronunciation: '/bi wɜːθ jɔː taɪm/', level: 'B1', examples: ['This movie is worth your time.'] },
+      { eng: 'Be worth your effort', vn: 'đáng để bạn bỏ công sức', pronunciation: '/bi wɜːθ jɔː ˈefət/', level: 'B1', examples: ['The project is worth your effort.'] },
+      { eng: 'Be worth your attention', vn: 'đáng để bạn chú ý', pronunciation: '/bi wɜːθ jɔː əˈtenʃn/', level: 'B1', examples: ['This issue is worth your attention.'] },
+      { eng: 'Be worth your investment', vn: 'đáng để bạn đầu tư', pronunciation: '/bi wɜːθ jɔː ɪnˈvestmənt/', level: 'B1', examples: ['This business opportunity is worth your investment.'] },
+      { eng: 'Be worth your consideration', vn: 'đáng để bạn cân nhắc', pronunciation: '/bi wɜːθ jɔː kənˌsɪdəˈreɪʃn/', level: 'B1', examples: ['This proposal is worth your consideration.'] },
+      { eng: 'Be worth your support', vn: 'đáng để bạn ủng hộ', pronunciation: '/bi wɜːθ jɔː səˈpɔːt/', level: 'B1', examples: ['This cause is worth your support.'] },
+      { eng: 'Be worth your time and effort', vn: 'đáng để bạn bỏ thời gian và công sức', pronunciation: '/bi wɜːθ jɔː taɪm ənd ˈefət/', level: 'B1', examples: ['This event is worth your time and effort.'] },
+      { eng: 'Act', vn: 'hành động, hành xử', pronunciation: '/ækt/ v', level: 'A2', examples: ['We must act quickly to solve the problem.'] },
+      { eng: 'Active', vn: 'năng động', pronunciation: '/ˈæk.tɪv/ adj', level: 'A2', examples: ['She is active in several community projects.'] },
+      { eng: 'Inactive', vn: 'thụ động', pronunciation: '/ɪnˈæk.tɪv/ adj', level: 'B1', examples: ['He has been inactive since his injury.'] },
+      { eng: 'Action', vn: 'hành động', pronunciation: '/ˈæk.ʃən/ n', level: 'A2', examples: ['The government must take action to reduce pollution.'] },
+      { eng: 'Actor', vn: 'diễn viên', pronunciation: '/ˈæk.tər/ n', level: 'A1', examples: ['He is a famous actor.'] },
+      { eng: 'Athlete', vn: 'vận động viên', pronunciation: '/ˈæθ.liːt/ n', level: 'A2', examples: ['The athlete won three gold medals.'] },
+      { eng: 'Athletic', vn: 'khỏe mạnh, điền kinh', pronunciation: '/æθˈlet.ɪk/ adj', level: 'B1', examples: ['She has an athletic build.'] },
+      { eng: 'Athletics', vn: 'môn điền kinh', pronunciation: '/æθˈlet.ɪks/ n', level: 'B1', examples: ['He is training for a career in athletics.'] },
+      { eng: 'Child', vn: 'đứa trẻ', pronunciation: '/tʃaɪld/ n', level: 'A1', examples: ['The child is playing in the garden.'] },
+      { eng: 'Children', vn: 'trẻ em', pronunciation: '/ˈtʃɪl.drən/ n', level: 'A1', examples: ['Children love playing games.'] },
+      { eng: 'Childhood', vn: 'thời thơ ấu', pronunciation: '/ˈtʃaɪld.hʊd/ n', level: 'B1', examples: ['He spent his childhood in the countryside.'] },
+      { eng: 'Collect', vn: 'thu thập, sưu tầm', pronunciation: '/kəˈlekt/ v', level: 'A2', examples: ['She collects stamps from all over the world.'] },
+      { eng: 'Collection', vn: 'bộ sưu tập, sự sưu tập', pronunciation: '/kəˈlek.ʃən/ n', level: 'A2', examples: ['He has a large collection of books.'] },
+      { eng: 'Collector', vn: 'người sưu tập', pronunciation: '/kəˈlek.tər/ n', level: 'B1', examples: ['She is a collector of rare coins.'] },
+      { eng: 'Entertain', vn: 'giải trí', pronunciation: '/en.təˈteɪn/ v', level: 'A2', examples: ['The clown entertained the children.'] },
+      { eng: 'Entertainment', vn: 'sự giải trí', pronunciation: '/en.təˈteɪn.mənt/ n', level: 'A2', examples: ['The town offers a wide range of entertainment.'] },
+      { eng: 'Hero', vn: 'anh hùng', pronunciation: '/ˈhɪə.rəʊ/ n', level: 'A2', examples: ['The firefighter is a national hero.'] },
+      { eng: 'Heroic', vn: 'khí phách, anh dũng', pronunciation: '/hɪˈrəʊ.ɪk/ adj', level: 'B1', examples: ['She made a heroic effort to save the child.'] },
+      { eng: 'Heroine', vn: 'nữ anh hùng', pronunciation: '/ˈher.əʊ.ɪn/ n', level: 'B1', examples: ['She is the heroine of the story.'] },
+      { eng: 'Music', vn: 'âm nhạc', pronunciation: '/ˈmjuː.zɪk/ n', level: 'A1', examples: ['I love listening to music.'] },
+      { eng: 'Musical', vn: 'âm nhạc, nhạc kịch', pronunciation: '/ˈmjuː.zɪ.kəl/ adj, n', level: 'A2', examples: ['She has a musical talent.'] },
+      { eng: 'Musician', vn: 'nhạc sĩ', pronunciation: '/mjuːˈzɪʃ.ən/ n', level: 'A2', examples: ['He is a talented musician.'] },
+      { eng: 'Play', vn: 'chơi, vở kịch', pronunciation: '/pleɪ/ v, n', level: 'A1', examples: ['The children play in the park.'] },
+      { eng: 'Player', vn: 'người chơi, vận động viên', pronunciation: '/ˈpleɪ.ər/ n', level: 'A1', examples: ['He is a football player.'] },
+      { eng: 'Sport', vn: 'thể thao, môn thể thao', pronunciation: '/spɔːt/ n, v', level: 'A1', examples: ['Football is my favorite sport.'] },
+      { eng: 'Sports', vn: 'thể thao, môn thể thao', pronunciation: '/spɔːts/ n', level: 'A1', examples: ['She enjoys playing sports.'] },
+      { eng: 'Sportsman', vn: 'vận động viên thể thao', pronunciation: '/ˈspɔːts.mən/ n', level: 'B1', examples: ['He is a famous sportsman.'] },
+      { eng: 'Sportswoman', vn: 'vận động viên nữ thể thao', pronunciation: '/ˈspɔːts.wʊmən/ n', level: 'B1', examples: ['She is a talented sportswoman.'] },
+      { eng: 'Theatre', vn: 'nhà hát, rạp hát', pronunciation: '/ˈθɪə.tər/ | n', level: 'A2', examples: ['We went to the theatre to see a play.'] },
+      { eng: 'Theatrical', vn: 'thuộc về sân khấu, kịch nghệ', pronunciation: '/θiˈæt.rɪ.kəl/ | adj', level: 'B1', examples: ['He has a theatrical style of acting.'] },
+      { eng: 'Theatregoer', vn: 'người đi xem kịch, nhà hát', pronunciation: '/ˈθɪə.tər.ɡoʊər/ | n', level: 'B1', examples: ['She is a regular theatregoer.'] },
+      { eng: 'Win', vn: 'chiến thắng, giành chiến thắng', pronunciation: '/wɪn/ | v, n', level: 'A1', examples: ['They won the match.'] },
+      { eng: 'Winner', vn: 'người chiến thắng', pronunciation: '/ˈwɪnər/ | n', level: 'A1', examples: ['She is the winner of the competition.'] },
+      { eng: 'Winning', vn: 'chiến thắng, thắng cuộc', pronunciation: '/ˈwɪn.ɪŋ/ | adj, n', level: 'B1', examples: ['He has a winning smile.'] },
+      { eng: 'Lose', vn: 'thua, mất', pronunciation: '/luːz/ | v', level: 'A1', examples: ['They lost the game.'] },
+      { eng: 'Loser', vn: 'người thua cuộc', pronunciation: '/ˈluː.zər/ n', level: 'A1', examples: ['He is a sore loser.'] },
+      { eng: 'Losing', vn: 'thua cuộc, thất bại', pronunciation: '/ˈluː.zɪŋ/ adj, n', level: 'B1', examples: ['The losing team was disappointed.'] },
+      { eng: 'Win-win', vn: 'có lợi cho cả hai bên', pronunciation: '/ˈwɪn.wɪn/ adj', level: 'B1', examples: ['It’s a win-win situation for both parties.'] },
+      { eng: 'Draw', vn: 'hòa, trận hòa', pronunciation: '/drɔː/ v, n', level: 'A2', examples: ['The match ended in a draw.'] },
+      { eng: 'Drawn', vn: 'bị kéo, bị lôi kéo', pronunciation: '/drɔːn/ adj, v', level: 'B1', examples: ['She was drawn to the mysterious stranger.'] },
+      { eng: 'Draws', vn: 'trận hòa, sự thu hút', pronunciation: '/drɔːz/ n, v', level: 'B1', examples: ['The draws of the lottery are held every week.'] },
+      { eng: 'Musical', vn: 'thuộc về âm nhạc', pronunciation: '/ˈmjuː.zɪ.kəl/ adj', level: 'A2', examples: ['She has a musical talent.'] },
+      { eng: 'Musician', vn: 'nhạc sĩ', pronunciation: '/mjuːˈzɪʃ.ən/ n', level: 'A2', examples: ['He is a professional musician.'] },
+      { eng: 'Playful', vn: 'tinh nghịch, nhiều trò', pronunciation: '/ˈpleɪ.fəl/ adj', level: 'B1', examples: ['The puppy is very playful.'] },
+      { eng: 'Sail', vn: 'đi thuyền', pronunciation: '/seɪl/ v', level: 'A2', examples: ['We sailed across the lake.'] },
+      { eng: 'Sailing', vn: 'môn đua thuyền', pronunciation: '/ˈseɪ.lɪŋ/ n', level: 'B1', examples: ['Sailing is my favorite sport.'] },
+      { eng: 'Sailor', vn: 'thủy thủ', pronunciation: '/ˈseɪ.lər/ n', level: 'A2', examples: ['The sailor worked on the ship for many years.'] },
+      { eng: 'Sing', vn: 'hát', pronunciation: '/sɪŋ/ v', level: 'A1', examples: ['I like to sing in the shower.'] },
+      { eng: 'Song', vn: 'bài hát', pronunciation: '/sɒŋ/ n', level: 'A1', examples: ['That song is very popular.'] },
+      { eng: 'Singer', vn: 'ca sĩ', pronunciation: '/ˈsɪŋ.ər/ n', level: 'A1', examples: ['She is a famous singer.'] },
+      { eng: 'Singing', vn: 'ca hát', pronunciation: '/ˈsɪŋ.ɪŋ/ n', level: 'A2', examples: ['Her singing is amazing.'] },
+      { eng: 'Sang', vn: 'V2 của sing', pronunciation: '/sæŋ/ v', level: 'A2', examples: ['She sang beautifully at the concert.'] },
+      { eng: 'Sung', vn: 'V3 của sing', pronunciation: '/sʌŋ/ v', level: 'A2', examples: ['He has sung in many countries.'] }, 
+      { eng: 'Sporty', vn: 'thích thể thao, khỏe mạnh', pronunciation: '/ˈspɔːr.ti/ adj', level: 'B1', examples: ['He has a sporty look.'] },
+      { eng: 'Sportsmanship', vn: 'tinh thần thể thao', pronunciation: '/ˈspɔːrts.mən.ʃɪp/ n', level: 'B1', examples: ['Good sportsmanship is important in competitions.'] },
+      { eng: 'Stage', vn: 'sân khấu, giai đoạn', pronunciation: '/steɪdʒ/ n, v', level: 'A2', examples: ['The play will be performed on stage.'] },
+      { eng: 'Staged', vn: 'được dàn dựng, được tổ chức', pronunciation: '/steɪdʒd/ adj, v', level: 'B1', examples: ['The event was staged to raise funds.'] },
+      { eng: 'Staging', vn: 'sự dàn dựng, tổ chức', pronunciation: '/ˈsteɪ.dʒɪŋ/ n, v', level: 'B1', examples: ['The staging of the play was impressive.'] }, 
+];
+    function renderDictionary() { 
+      const list = document.getElementById('wordList');
+      const search = document.getElementById('searchInput');
+      let currentWords = [...vocabulary];
+      function displayWords(words) {
+        list.innerHTML = '';
+        words.forEach(({ eng, vn, pronunciation, level, examples }) => {
+          const li = document.createElement('li');
+          li.className = 'word-item';
+          li.textContent = eng;
+          li.addEventListener('click', () => {
+            showDefinition(eng, vn, pronunciation, level, examples);
+          });
+          list.appendChild(li);
+        });
+      }
+      search.addEventListener('input', () => {
+        const key = search.value.trim().toLowerCase();
+        currentWords = key === '' ? [...vocabulary] : vocabulary.filter(v => v.eng.toLowerCase().includes(key));
+        displayWords(currentWords);
+      });
+      displayWords(currentWords);
+    }
+    function showDefinition(eng, vn, pronunciation, level, examples) {
+      document.getElementById('wordMeaning').innerHTML = `<strong>${eng}</strong>: ${vn}`;
+      document.getElementById('wordPronunciation').innerHTML = `Pronunciation: ${pronunciation}<br>
+        <button onclick="speakWord('${eng}', 'en-US')">🔊 US</button>
+        <button onclick="speakWord('${eng}', 'en-GB')">🔊 UK</button>`;
+      document.getElementById('wordLevel').innerHTML = `Level: ${level}`;
+      document.getElementById('wordExamples').innerHTML = `<strong>Ví dụ:</strong> ${examples.join(', ')}`;
+      document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById('definitionPage').classList.add('active');
+
+      window.currentWordForSynonyms = eng;
+      document.getElementById('synonyms-content').innerHTML = 'Chọn tab Đồng nghĩa để xem!';
+    }
+
+// Khi chọn từ trong danh sách
+function showWordDetails(wordObj) {
+  selectedWord = wordObj.eng.trim(); // Lưu đúng phần tiếng Anh
+  document.getElementById('wordMeaning').innerText = wordObj.eng;
+  document.getElementById('wordPronunciation').innerText = 'Pronunciation: ' + wordObj.pronunciation;
+  document.getElementById('wordLevel').innerText = 'Level: ' + wordObj.level;
+  document.getElementById('wordExamples').innerHTML = '<strong>Examples:</strong><br>' + wordObj.examples.join('<br>');
+  showSection('definitionPage');
+}
+
+// AI lấy từ ĐỒNG NGHĨA và TRÁI NGHĨA
+document.querySelector('.tab-item[data-tab="en"]').addEventListener('click', function() {
+  const word = window.currentWordForSynonyms;
+  const synDiv = document.getElementById('synonyms-content');
+  if (!word) {
+    synDiv.innerHTML = 'Chưa chọn từ!';
+    return;
+  }
+  synDiv.innerHTML = '';
+  // Lấy đồng nghĩa
+  fetch(`https://api.datamuse.com/words?rel_syn=${encodeURIComponent(word)}`)
+    .then(res => res.json())
+    .then(synData => {
+      let html = '';
+      if (synData && synData.length > 0) {
+        const synonyms = synData.map(w => w.word).join(', ');
+        html += `<b>Đồng nghĩa:</b> ${synonyms}<br>`;
+      }
+      // Lấy trái nghĩa
+      fetch(`https://api.datamuse.com/words?rel_ant=${encodeURIComponent(word)}`)
+        .then(res2 => res2.json())
+        .then(antData => {
+          if (antData && antData.length > 0) {
+            const antonyms = antData.map(w => w.word).join(', ');
+            html += `<b>Trái nghĩa:</b> ${antonyms}`;
+          }
+          if (!html) html = 'Không tìm thấy đồng nghĩa hoặc trái nghĩa.';
+          synDiv.innerHTML = html;
+        })
+        .catch(() => {
+          if (!html) html = 'Không tìm thấy đồng nghĩa hoặc trái nghĩa.';
+          synDiv.innerHTML = html;
+        });
+    })
+    .catch(() => {
+      synDiv.innerHTML = 'Không tìm thấy đồng nghĩa hoặc trái nghĩa.';
+    });
+});
+
+// GIẢI NGHĨA 
+document.querySelector('.tab-item[data-tab="field"]').addEventListener('click', function() {
+  const word = window.currentWordForSynonyms;
+  const fieldDiv = document.getElementById('tab-field');
+  const contentDiv = document.getElementById('specialized-content') || (() => {
+    const div = document.createElement('div');
+    div.id = 'specialized-content';
+    fieldDiv.appendChild(div);
+    return div;
+  })();
+  if (!word) {
+    contentDiv.innerHTML = 'Chưa chọn từ!';
+    return;
+  }
+  contentDiv.innerHTML = 'Đang lấy dữ liệu...';
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`)
+    .then(res => res.json())
+    .then(data => {
+      let html = '';
+      if (Array.isArray(data) && data[0]?.meanings?.length) {
+        // Lấy tất cả nghĩa tiếng Anh
+        let allDefs = [];
+        data[0].meanings.forEach(m => {
+          m.definitions.forEach(d => {
+            allDefs.push(d.definition);
+          });
+        });
+        // Dịch toàn bộ nghĩa sang tiếng Việt
+        fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=vi&dt=t&q=${encodeURIComponent(allDefs.join('\n'))}`)
+          .then(res2 => res2.json())
+          .then(transData => {
+            // Tách nghĩa đã dịch
+            const viDefs = transData[0].map(arr => arr[0]);
+            let idx = 0;
+            data[0].meanings.forEach(m => {
+              html += `<b>${m.partOfSpeech || ''}</b><ul>`;
+              m.definitions.forEach(d => {
+                html += `<li>${viDefs[idx++]}</li>`;
+              });
+              html += `</ul>`;
+            });
+            contentDiv.innerHTML = html;
+          })
+          .catch(() => {
+            contentDiv.innerHTML = 'Không thể dịch nghĩa sang tiếng Việt.';
+          });
+      } else {
+        contentDiv.innerHTML = 'Không tìm thấy nghĩa chuyên ngành cho từ này.';
+      }
+    })
+    .catch(() => {
+      contentDiv.innerHTML = 'Không tìm thấy nghĩa chuyên ngành cho từ này.';
+    });
+});
+
+
+// NGỮ PHÁP 
+// Hàm kiểm tra từ hợp lệ bằng API Free Dictionary
+const IRREGULARS = {
+  be: { v2: 'was', v2_alt: 'were', v3: 'been', ing: 'being', third: 'is' },
+  have: { v2: 'had', v3: 'had', ing: 'having', third: 'has' },
+  do: { v2: 'did', v3: 'done', ing: 'doing', third: 'does' },
+  go: { v2: 'went', v3: 'gone', ing: 'going', third: 'goes' },
+  get: { v2: 'got', v3: 'got', ing: 'getting', third: 'gets' },
+  make: { v2: 'made', v3: 'made', ing: 'making', third: 'makes' },
+  take: { v2: 'took', v3: 'taken', ing: 'taking', third: 'takes' },
+  come: { v2: 'came', v3: 'come', ing: 'coming', third: 'comes' },
+  see: { v2: 'saw', v3: 'seen', ing: 'seeing', third: 'sees' },
+  eat: { v2: 'ate', v3: 'eaten', ing: 'eating', third: 'eats' },
+  sing: { v2: 'sang', v3: 'sung', ing: 'singing', third: 'sings' },
+  write: { v2: 'wrote', v3: 'written', ing: 'writing', third: 'writes' },
+  run: { v2: 'ran', v3: 'run', ing: 'running', third: 'runs' },
+  read: { v2: 'read', v3: 'read', ing: 'reading', third: 'reads' },
+  buy: { v2: 'bought', v3: 'bought', ing: 'buying', third: 'buys' },
+  bring: { v2: 'brought', v3: 'brought', ing: 'bringing', third: 'brings' },
+  think: { v2: 'thought', v3: 'thought', ing: 'thinking', third: 'thinks' },
+  say: { v2: 'said', v3: 'said', ing: 'saying', third: 'says' },
+  speak: { v2: 'spoke', v3: 'spoken', ing: 'speaking', third: 'speaks' },
+  begin: { v2: 'began', v3: 'begun', ing: 'beginning', third: 'begins' },
+  sleep: { v2: 'slept', v3: 'slept', ing: 'sleeping', third: 'sleeps' }
+};
+
+function isVowel(ch) {
+  return 'aeiou'.includes(ch);
+}
+
+function endsWithCVC(word) {
+  if (!word || word.length < 3) return false;
+  const w = word.toLowerCase();
+  const a = w[w.length - 3];
+  const b = w[w.length - 2];
+  const c = w[w.length - 1];
+  // Không double những chữ cái w, x, y
+  if (['w','x','y'].includes(c)) return false;
+  return !isVowel(a) && isVowel(b) && !isVowel(c);
+}
+
+function capitalize(word) {
+  if (!word) return '';
+  return word[0].toUpperCase() + word.slice(1);
+}
+
+function normalize(word) {
+  if (!word) return '';
+  // Lấy chữ trước dấu ':' (nếu có), bỏ dấu ngoài chữ và khoảng trắng
+  let w = String(word).trim();
+  if (w.includes(':')) w = w.split(':')[0].trim();
+  // Nếu là cụm từ (Good morning) giữ nguyên (còn nếu bạn muốn chỉ lấy 1 từ, thay logic ở đây)
+  return w.replace(/["'`\n\r]/g, '').trim();
+}
+
+function conjugateVerb(base) {
+  const raw = (base || '').toString().trim();
+  const b = raw.toLowerCase();
+  if (!b) return { base: raw, third: '', v2: '', v3: '', gerund: '' };
+
+  // irregular
+  if (IRREGULARS[b]) {
+    const r = IRREGULARS[b];
+    return {
+      base: b,
+      third: r.third || (b + 's'),
+      v2: r.v2 || (b + 'ed'),
+      v3: r.v3 || (b + 'ed'),
+      gerund: r.ing || (b + 'ing')
+    };
+  }
+
+  // gerund (V-ing)
+  let gerund;
+  if (b.endsWith('ie')) {
+    gerund = b.replace(/ie$/, 'ying'); // lie -> lying
+  } else if (b.endsWith('e') && !b.endsWith('ee')) {
+    gerund = b.replace(/e$/, 'ing'); // make -> making
+  } else if (endsWithCVC(b)) {
+    gerund = b + b[b.length - 1] + 'ing'; // run -> running
+  } else {
+    gerund = b + 'ing';
+  }
+
+  // past (V2) and past participle (V3)
+  let v2, v3;
+  if (b.endsWith('e')) {
+    v2 = b + 'd';
+  } else if (b.endsWith('y') && !isVowel(b[b.length - 2])) {
+    v2 = b.slice(0, -1) + 'ied';
+  } else if (endsWithCVC(b)) {
+    v2 = b + b[b.length - 1] + 'ed';
+  } else {
+    v2 = b + 'ed';
+  }
+  v3 = v2; // For regular verbs
+
+  // third person singular
+  let third;
+  if (/(s|x|z|ch|sh|o)$/.test(b)) third = b + 'es';
+  else if (b.endsWith('y') && !isVowel(b[b.length - 2])) third = b.slice(0, -1) + 'ies';
+  else third = b + 's';
+
+  return { base: b, third, v2, v3, gerund };
+}
+
+async function generateFamilyWords(baseWord) {
+  const base = normalize(baseWord).toLowerCase();
+  if (!base) return { noun: '', verb: '', adjective: '', adverb: '' };
+
+  // candidates (theo quy tắc đơn giản) - sẽ kiểm tra bằng isValidWord nếu có
+  const candidates = {
+    noun: [base, base + 'er', base.replace(/e$/, '') + 'er', base + 'ion', base + 'ment', base + 'ing'],
+    verb: [base],
+    adjective: [base + 'y', base + 'ful', base + 'ive', base + 'al'],
+    adverb: [base + 'ly']
+  };
+
+  const result = { noun: '', verb: '', adjective: '', adverb: '' };
+  const canCheck = (typeof isValidWord === 'function');
+
+  for (const kind of Object.keys(candidates)) {
+    const list = candidates[kind];
+    let chosen = '';
+    if (canCheck) {
+      for (let cand of list) {
+        try {
+          // isValidWord có thể gọi API dictionary; nếu true -> chọn
+          // thêm timeout/bail-out nếu cần
+          /* eslint-disable no-await-in-loop */
+          // đảm bảo loại bỏ khoảng trắng và ký tự lạ
+          cand = cand.trim();
+          if (!cand) continue;
+          // một số API không chấp nhận multi-word; bỏ qua
+          if (cand.includes(' ')) continue;
+          // Kiểm tra
+          // isValidWord có thể ném lỗi nếu API trục trặc
+          // Do isValidWord đã có trong file gốc, tận dụng nó
+          // Nhưng nếu việc gọi API thất bại (mạng), fallback sẽ áp dụng
+          // await isValidWord may be slow; but acceptable here.
+          // Nếu isValidWord không tồn tại, bật fallback để hiển thị dạng suy đoán.
+          // Nếu isValidWord trả true => chọn và break
+          // Nếu isValidWord trả false => tiếp
+          // Nếu isValidWord ném => catch và tiếp
+          // IMPORTANT: nếu isValidWord quá chậm hoặc hạn chế CORS, fallback sẽ hiển thị phán đoán.
+          // Thời gian chờ không được áp dụng ở đây để code đơn giản — có thể thêm timeout nếu cần.
+          if (await isValidWord(cand)) { chosen = cand; break; }
+        } catch (e) {
+          // ignore và dùng fallback
+        }
+      }
+    }
+    if (!chosen) {
+      // fallback: lấy candidate đầu tiên hợp lý
+      chosen = list.find(Boolean) || '';
+    }
+    result[kind] = chosen;
+  }
+  return result;
+}
+
+async function generateTenseExamples(word) {
+  const cleaned = normalize(word);
+  const base = cleaned.split(' ')[0] || cleaned; // lấy từ đầu của cụm từ nếu có
+  if (!base) return {
+    presentSimple: '', pastSimple: '', futureSimple: '',
+    presentContinuous: '', pastContinuous: '', futureContinuous: '',
+    presentPerfect: '', pastPerfect: '', futurePerfect: ''
+  };
+
+  // Nếu isValidWord tồn tại và trả false thì vẫn tiếp (vì nhiều từ-cụm không có trong dict)
+  const conj = conjugateVerb(base);
+
+  // Build example sentences with correct forms
+  const examples = {
+    presentSimple: `I ${conj.base} every day.`,
+    pastSimple: `I ${conj.v2} yesterday.`,
+    futureSimple: `I will ${conj.base} tomorrow.`,
+    presentContinuous: `I am ${conj.gerund} now.`,
+    pastContinuous: `I was ${conj.gerund} yesterday.`,
+    futureContinuous: `I will be ${conj.gerund} tomorrow.`,
+    presentPerfect: `I have ${conj.v3} many times.`,
+    pastPerfect: `I had ${conj.v3} before you arrived.`,
+    futurePerfect: `I will have ${conj.v3} by next week.`
+  };
+
+  return examples;
+}
+
+async function showGrammarAndFamilyWords(selectedWord) {
+  const cleaned = normalize(selectedWord);
+  const wordForLookup = (window.currentWordForSynonyms || cleaned).toString().trim();
+  if (!wordForLookup) {
+    // clear fields
+    ['familyNoun','familyVerb','familyAdjective','familyAdverb','presentSimple','pastSimple','futureSimple','presentContinuous','pastContinuous','futureContinuous','presentPerfect','pastPerfect','futurePerfect']
+      .forEach(id => { const el = document.getElementById(id); if (el) el.innerText = ''; });
+    return;
+  }
+
+  // Family words
+  const family = await generateFamilyWords(wordForLookup);
+  if (document.getElementById('familyNoun')) document.getElementById('familyNoun').innerText = family.noun || '-';
+  if (document.getElementById('familyVerb')) document.getElementById('familyVerb').innerText = family.verb || (normalize(wordForLookup) || '-');
+  if (document.getElementById('familyAdjective')) document.getElementById('familyAdjective').innerText = family.adjective || '-';
+  if (document.getElementById('familyAdverb')) document.getElementById('familyAdverb').innerText = family.adverb || '-';
+
+  // Tenses
+  const tenses = await generateTenseExamples(wordForLookup);
+  if (document.getElementById('presentSimple')) document.getElementById('presentSimple').innerText = tenses.presentSimple;
+  if (document.getElementById('pastSimple')) document.getElementById('pastSimple').innerText = tenses.pastSimple;
+  if (document.getElementById('futureSimple')) document.getElementById('futureSimple').innerText = tenses.futureSimple;
+  if (document.getElementById('presentContinuous')) document.getElementById('presentContinuous').innerText = tenses.presentContinuous;
+  if (document.getElementById('pastContinuous')) document.getElementById('pastContinuous').innerText = tenses.pastContinuous;
+  if (document.getElementById('futureContinuous')) document.getElementById('futureContinuous').innerText = tenses.futureContinuous;
+  if (document.getElementById('presentPerfect')) document.getElementById('presentPerfect').innerText = tenses.presentPerfect;
+  if (document.getElementById('pastPerfect')) document.getElementById('pastPerfect').innerText = tenses.pastPerfect;
+  if (document.getElementById('futurePerfect')) document.getElementById('futurePerfect').innerText = tenses.futurePerfect;
+}
+
+// Attach to grammar tab click (overwrite existing listener behavior safely)
+(function attachGrammarTab() {
+  const btn = document.querySelector('.tab-item[data-tab="grammar"]');
+  if (!btn) return;
+  btn.removeEventListener('click', btn._grammarClickHandler);
+  const handler = async function () {
+    const wordEl = document.getElementById('wordMeaning');
+    let word = window.currentWordForSynonyms || (wordEl && wordEl.textContent) || '';
+    word = normalize(word);
+    if (!word) {
+      alert('Chưa chọn từ! Vui lòng chọn một từ trong danh sách.');
+      return;
+    }
+    await showGrammarAndFamilyWords(word);
+  };
+  // store ref so removeEventListener can work in future
+  btn._grammarClickHandler = handler;
+  btn.addEventListener('click', handler);
+})();
+
+    // Microphone functionality
+    function showSection(id) {
+      document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.sidebar button').forEach(btn => btn.classList.remove('active'));
+      const btn = [...document.querySelectorAll('.sidebar button')].find(b => b.getAttribute('onclick')?.includes(id));
+      if (btn) btn.classList.add('active');
+    }
+      const micBtn = document.getElementById('micBtn');
+      const searchInput = document.getElementById('searchInput');
+      micBtn.addEventListener('click', () => {
+        if (!('webkitSpeechRecognition' in window)) {
+          alert('Trình duyệt không hỗ trợ giọng nói.');
+          return;
+      }
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      recognition.start();
+      micBtn.textContent = '🎙️';
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        searchInput.value = transcript;
+        searchInput.dispatchEvent(new Event('input'));
+        micBtn.textContent = '🎤';
+      };
+      recognition.onerror = () => {
+        micBtn.textContent = '🎤';
+        alert('Không thể nhận dạng giọng nói.');
+      };
+      recognition.onend = () => {
+        micBtn.textContent = '🎤';
+      };
+    });
+
+    //
+    document.querySelectorAll('.tab-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.tab-item').forEach(btn => btn.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+document.querySelectorAll('.tab-item').forEach(item => {
+  item.addEventListener('click', () => {
+    // Chuyển active tab
+    document.querySelectorAll('.tab-item').forEach(btn => btn.classList.remove('active'));
+    item.classList.add('active');
+    // Ẩn tất cả tab content
+    document.querySelectorAll('#definitionPage .tab-content').forEach(div => div.style.display = 'none');
+    // Hiện tab đã chọn
+    const tabId = item.dataset.tab;
+    document.getElementById('tab-' + tabId).style.display = 'block';
+  });
+});
+
+/*Phần Bài Tập Thì*/
+async function generateExercise(tense) {
+  const manualQuestions = {
+    "Present Simple": [
+      { question: "She ____ to school every day.", options: ["go", "goes", "going", "gone"], answer: "goes" },
+      { question: "I ____ coffee in the morning.", options: ["drink", "drinks", "drank", "drinking"], answer: "drink" },
+      { question: "We ____ in London.", options: ["live", "lives", "living", "lived"], answer: "live" },
+      { question: "He usually ____ breakfast at 7 a.m.", options: ["have", "has", "having", "had"], answer: "has" },
+      { question: "My brother rarely ____ breakfast before 7 a.m.", options: ["have", "has", "having", "had"], answer: "has" },
+      { question: "The museum ____ at 9 a.m. every day except Monday.", options: ["open", "opens", "opening", "opened"], answer: "opens" },
+      { question: "I never ____ sugar in my coffee.", options: ["put", "puts", "putting", "putted"], answer: "put" },
+      { question: "Where ____ your grandparents live?", options: ["do", "does", "are", "did"], answer: "do" },
+      { question: "The train to Paris ____ from platform 3 at 10:15 a.m.", options: ["leave", "leaves", "leaving", "left"], answer: "leaves" },
+      { question: "She doesn’t usually ____ lunch at home on weekdays.", options: ["have", "has", "having", "had"], answer: "have" },
+      { question: "How often ____ he call his parents?", options: ["do", "does", "is", "did"], answer: "does" },
+      { question: "My parents always ____ their bills on time.", options: ["pay", "pays", "paying", "paid"], answer: "pay" },
+      { question: "If it rains tomorrow, the match ____ postponed.", options: ["is", "be", "will be", "was"], answer: "is" },
+      { question: "The Earth ____ around the Sun once a year.", options: ["go", "goes", "going", "gone"], answer: "goes" },
+      { question: "What time ____ your father usually get home from work?", options: ["do", "does", "is", "did"], answer: "does" },
+      { question: "He ____ TV unless there’s a football match.", options: ["doesn't watch", "don't watch", "watches", "watched"], answer: "doesn't watch" },
+      { question: "The shop assistant always ____ customers politely.", options: ["greet", "greets", "greeting", "greeted"], answer: "greets" },
+      { question: "Why ____ you always arrive late for class?", options: ["do", "does", "are", "did"], answer: "do" },
+      { question: "My best friend and I ____ each other very well.", options: ["understands", "understand", "understanding", "understood"], answer: "understand" },
+      { question: "The library closes at 5 p.m., but on Fridays it ____ at 4 p.m.", options: ["close", "closes", "closing", "closed"], answer: "closes" }
+    ],
+    "Past Simple": [
+      { question: "They ____ football yesterday.", options: ["play", "plays", "played", "playing"], answer: "played" },
+      { question: "He ____ to the market last week.", options: ["go", "goes", "went", "gone"], answer: "went" },
+      { question: "I ____ a movie last night.", options: ["watch", "watches", "watched", "watching"], answer: "watched" },
+      { question: "We ____ to Paris in 2019.", options: ["travel", "travels", "traveled", "traveling"], answer: "traveled" },
+      { question: "My brother ____ the guitar when he was a teenager.", options: ["play", "played", "plays", "playing"], answer: "played" },
+      { question: "We ____ any homework last night because the teacher was absent.", options: ["don’t have", "didn’t have", "doesn’t have", "hadn’t"], answer: "didn’t have" },
+      { question: "Where ____ you go on holiday last summer?", options: ["do", "does", "did", "done"], answer: "did" },
+      { question: "I ____ my wallet on the bus yesterday morning.", options: ["lose", "loses", "lost", "losing"], answer: "lost" },
+      { question: "They ____ in Paris for two years before moving to Rome.", options: ["live", "lives", "lived", "living"], answer: "lived" },
+      { question: "She ____ to the cinema but didn’t enjoy the film.", options: ["go", "went", "goes", "gone"], answer: "went" },
+      { question: "What time ____ the concert start last night?", options: ["do", "does", "did", "done"], answer: "did" },
+      { question: "I ____ my best friend at a café three days ago.", options: ["meet", "meets", "met", "meeting"], answer: "met" },
+      { question: "They ____ a lot of money on their wedding party.", options: ["spend", "spends", "spent", "spending"], answer: "spent" },
+      { question: "We didn’t ____ the answer to question 5.", options: ["know", "knew", "knows", "knowing"], answer: "know" },
+      { question: "Who ____ the door when you arrived?", options: ["open", "opened", "opens", "opening"], answer: "opened" },
+      { question: "He ____ breakfast and then left for work.", options: ["has", "had", "have", "having"], answer: "had" },
+      { question: "My parents ____ me a bike for my 12th birthday.", options: ["buy", "bought", "buys", "buyed"], answer: "bought" },
+      { question: "We ____ in the library for two hours yesterday afternoon.", options: ["study", "studies", "studied", "studying"], answer: "studied" },
+      { question: "Why ____ she cry after the meeting?", options: ["do", "does", "did", "done"], answer: "did" },
+      { question: "The movie was boring, so we ____ before it finished.", options: ["leave", "leaves", "left", "leaving"], answer: "left" }
+    ],
+    "Future Simple": [
+      { question: "I ____ to the party tomorrow night.", options: ["go", "going", "will go", "went"], answer: "will go" },
+      { question: "She ____ her exams next week.", options: ["take", "takes", "will take", "took"], answer: "will take" },
+      { question: "They ____ a new car next month.", options: ["buy", "buys", "will buy", "bought"], answer: "will buy" },
+      { question: "We ____ to the beach this weekend.", options: ["go", "going", "will go", "went"], answer: "will go" },
+      { question: "He ____ his homework later today.", options: ["do", "does", "will do", "did"], answer: "will do" },
+      { question: "I think it ____ rain tomorrow.", options: ["isn't going to", "won't", "doesn't going to", "didn't"], answer: "won't" },
+      { question: "Where ____ you travel next summer?", options: ["do", "does", "are going to", "did"], answer: "are going to" },
+      { question: "They ____ their grandparents next week.", options: ["visit", "visits", "will visit", "visited"], answer: "will visit" },
+      { question: "She ____ her birthday party next month.", options: ["have", "has", "will have", "had"], answer: "will have" },
+      { question: "What time ____ the meeting start tomorrow?", options: ["do", "does", "is going to", "did"], answer: "is going to" },
+      { question: "I promise I ____ help you with your project.", options: ["will", "won't", "", ""], answer: "will" },
+      { question: "He said he ____ call me later.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "We ____ finish the report by Friday.", options: ["will", "won't", "", ""], answer: "will" },
+      { question: "They ____ not attend the conference next month.", options: ["will", "won't", "", ""], answer: "won't" },
+      { question: "I think she ____ be late for the meeting.", options: ["will", "won't", "", ""], answer: "will" },
+      { question: "He promised he ____ help us with the project.", options: ["would", "wouldn't", "", ""], answer: "would" },
+      { question: "We ____ go hiking if the weather is nice.", options: ["will", "won't", "", ""], answer: "will" },
+      { question: "She said she ____ join us for dinner.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "I hope they ____ arrive on time.", options: ["will", "won't", "", ""], answer: "will" },
+      { question: "What time ____ the train leave tomorrow?", options: ["does", "do", "is going to", "did"], answer: "is going to" }
+    ],
+    "Present Continuous": [
+      { question: "I ____ my homework right now.", options: ["do", "does", "am doing", "did"], answer: "am doing" },
+      { question: "She ____ a book at the moment.", options: ["read", "reads", "is reading", "reading"], answer: "is reading" },
+      { question: "They ____ to the cinema tonight.", options: ["go", "going", "are going", "went"], answer: "are going" },
+      { question: "We ____ dinner at 7 p.m. today.", options: ["have", "having", "are having", "had"], answer: "are having" },
+      { question: "He ____ his car right now.", options: ["wash", "washes", "is washing", "washed"], answer: "is washing" },
+      { question: "I ____ not working this weekend.", options: ["am not", "", "", ""], answer: "" },
+      { question: "Where ____ you going after class?", options: ["are", "", "", ""], answer: "" },
+      { question: "They ____ a new project at work this week.", options: ["start", "starts", "are starting", "started"], answer: "are starting" },
+      { question: "She ____ her friends for coffee right now.", options: ["meet", "meets", "is meeting", "met"], answer: "is meeting" },
+      { question: "What time ____ the concert start tonight?", options: ["does", "", "", ""], answer: "" },
+      { question: "I think it ____ rain later today.", options: ["isn't going to", "", "", ""], answer: "" },
+      { question: "He said he ____ call me later.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "We ____ finish the report by Friday.", options: ["will", "", "", ""], answer: "" },
+      { question: "They ____ not attend the conference next month.", options: ["will", "", "", ""], answer: "" },
+      { question: "I hope she ____ be late for the meeting.", options: ["won't", "", "", ""], answer: "" },
+      { question: "He promised he ____ help us with the project.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "We ____ go hiking if the weather is nice.", options: ["will", "", "", ""], answer: "" },
+      { question: "She said she ____ join us for dinner.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "I hope they ____ arrive on time.", options: ["will", "", "", ""], answer: "" },
+      { question: "What time ____ the train leave tomorrow?", options: ["does", "", "", ""], answer: "" }
+  ],
+    "Past Continuous": [
+      { question: "I ____ my homework when the phone rang.", options: ["do", "was doing", "did", "doing"], answer: "was doing" },
+      { question: "She ____ a book when I arrived.", options: ["read", "was reading", "reads", "reading"], answer: "was reading" },
+      { question: "They ____ to the cinema when it started to rain.", options: ["go", "were going", "went", "going"], answer: "were going" },
+      { question: "We ____ dinner when the power went out.", options: ["have", "were having", "had", "having"], answer: "were having" },
+      { question: "He ____ his car when I saw him.", options: ["wash", "was washing", "washes", "washed"], answer: "was washing" },
+      { question: "I ____ not working at that time.", options: ["was not", "", "", ""], answer: "" },
+      { question: "Where ____ you going when I called?", options: ["were", "", "", ""], answer: "" },
+      { question: "They ____ a new project at work last week.", options: ["start", "were starting", "started", "starting"], answer: "were starting" },
+      { question: "She ____ her friends for coffee when I saw her.", options: ["meet", "was meeting", "meets", "met"], answer: "was meeting" },
+      { question: "What time ____ the concert start last night?", options: ["did", "", "", ""], answer: "" },
+      { question: "I think it ____ rain later yesterday.", options: ["wasn't going to", "", "", ""], answer: "" },
+      { question: "He said he ____ call me later yesterday.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "We ____ finish the report by Friday last week.", options: ["were going to", "", "", ""], answer: "" },
+      { question: "They ____ not attend the conference next month.", options: ["will not be attending", "", "", ""], answer: "" },
+      { question: "I hope she ____ be late for the meeting yesterday.", options: ["wasn't going to be late", "", "", ""], answer: "" },
+      { question: "He promised he ____ help us with the project yesterday.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "We ____ go hiking if the weather was nice yesterday.", options: ["were going to", "", "", ""], answer: "" },
+      { question: "She said she ____ join us for dinner yesterday.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "I hope they ____ arrive on time yesterday.", options: ["didn't", "", "", ""], answer: "" },
+      { question: "What time ____ the train leave yesterday?", options: ["did", "", "", ""], answer: "" }
+  ],
+    "Present Perfect": [
+      { question: "I ____ my homework already.", options: ["do", "did", "have done", "doing"], answer: "have done" },
+      { question: "She ____ a book this week.", options: ["read", "reads", "has read", "reading"], answer: "has read" },
+      { question: "They ____ to the cinema three times this month.", options: ["go", "went", "have gone", "going"], answer: "have gone" },
+      { question: "We ____ dinner already.", options: ["have", "had", "has had", "having"], answer: "have had" },
+      { question: "He ____ his car recently.", options: ["wash", "washes", "has washed", "washed"], answer: "has washed" },
+      { question: "I ____ not working today.", options: ["am not", "", "", ""], answer: "" },
+      { question: "Where ____ you going after class?", options: ["are", "", "", ""], answer: "" },
+      { question: "They ____ a new project at work this week.", options: ["start", "started", "have started", "starting"], answer: "have started" },
+      { question: "She ____ her friends for coffee today.", options: ["meet", "meets", "has met", "meeting"], answer: "has met" },
+      { question: "What time ____ the concert start?", options: ["does", "", "", ""], answer: "" },
+      { question: "I think it ____ rain later today.", options: ["isn't going to", "", "", ""], answer: "" },
+      { question: "He said he ____ call me later today.", options: ["wouldn't", "", "", ""], answer: "" },
+      { question: "We ____ finish the report by Friday.", options: ["will have finished", "", "", ""], answer: "" },
+      { question: "They ____ not attend the conference next month.", options: ["will not be attending", "", "", ""], answer: "" },
+      { question: "I hope she ____ be late for the meeting today.", options: ["won't be late", "", "", ""], answer: "" },
+      { question: "He promised he ____ help us with the project today.", options: ["wouldn't help us today", "", "", ""], answer: "" },
+      { question: "We ____ go hiking if the weather is nice today.", options: ["will go", "", "", ""], answer: "" },
+      { question: "She said she ____ join us for dinner today.", options: ["wouldn't join us", "", "", ""], answer: "" },
+      { question: "I hope they ____ arrive on time today.", options: ["will arrive", "", "", ""], answer: "" },
+      { question: "What time ____ the train leave today?", options: ["does", "", "", ""], answer: "" }
+  ],
+    "Past Perfect": [
+      { question: "I ____ my homework before dinner.", options: ["had done", "did", "have done", "doing"], answer: "had done" },
+      { question: "She ____ a book before the meeting started.", options: ["had read", "reads", "has read", "reading"], answer: "had read" },
+      { question: "They ____ to the cinema before it started to rain.", options: ["had gone", "went", "have gone", "going"], answer: "had gone" },
+      { question: "We ____ dinner before the power went out.", options: ["had had", "have had", "had", "having"], answer: "had had" },
+      { question: "He ____ his car before I saw him.", options: ["had washed", "washes", "has washed", "washed"], answer: "had washed" },
+      { question: "I ____ not working when you called.", options: ["was not", "", "", ""], answer: "" },
+      { question: "Where ____ you going when I called?", options: ["were", "", "", ""], answer: "" },
+      { question: "They ____ a new project at work last week.", options: ["had started", "started", "have started", "starting"], answer: "had started" },
+      { question: "She ____ her friends for coffee when I saw her.", options: ["had met", "meets", "has met", "meeting"], answer: "had met" },
+      { question: "What time ____ the concert start last night?", options: ["did", "", "", ""], answer: "" },
+      { question: "I think it ____ rain later yesterday.", options: ["wasn't going to", "", "", ""], answer: "" },
+      { question: "He said he ____ call me later yesterday.", options: ["wouldn't have called me later yesterday", "", "", ""], answer: "" },
+      { question: "We ____ finish the report by Friday last week.", options: ["were going to finish it by Friday last week", "", "", ""], answer: "" },
+      { question: "They ____ not attend the conference next month.", options: ["will not be attending next month", "", "", ""], answer: "" },
+      { question: "I hope she ____ be late for the meeting yesterday.", options: ["wasn't going to be late for the meeting yesterday", "", "", ""], answer: "" },
+      { question: "He promised he ____ help us with the project yesterday.", options: ["wouldn't have helped us with the project yesterday", "", "", ""], answer: "" },
+      { question: "We ____ go hiking if the weather was nice yesterday.", options: ["were going to go hiking if the weather was nice yesterday", "", "", ""], answer: "" },
+      { question: "She said she ____ join us for dinner yesterday.", options: ["wouldn't have joined us for dinner yesterday", "", "", ""], answer: "" },
+      { question: "I hope they ____ arrive on time yesterday.", options: ["didn't arrive on time yesterday", "", "", ""], answer: "" },
+      { question: "What time ____ the train leave yesterday?", options: ["did", "", "", ""], answer: "" }
+  ],
+    "Future Perfect": [
+      { question: "I ____ my homework by 8 p.m. tonight.", options: ["will have done", "did", "have done", "doing"], answer: "will have done" },
+      { question: "She ____ a book by the end of this month.", options: ["will have read", "reads", "has read", "reading"], answer: "will have read" },
+      { question: "They ____ to the cinema by next week.", options: ["will have gone", "went", "have gone", "going"], answer: "will have gone" },
+      { question: "We ____ dinner by 7 p.m. tomorrow.", options: ["will have had", "have had", "had", "having"], answer: "will have had" },
+      { question: "He ____ his car by the time I arrive.", options: ["will have washed", "washes", "has washed", "washed"], answer: "will have washed" },
+      { question: "I ____ not working next weekend.", options: ["am not going to be working next weekend", "", "", ""], answer: "" },
+      { question: "Where ____ you going after class tomorrow?", options: ["are going to be going after class tomorrow", "", "", ""], answer: "" },
+      { question: "They ____ a new project at work by next month.", options: ["will have started a new project at work by next month", "", "", ""], answer: "" },
+      { question: "She ____ her friends for coffee tomorrow afternoon.", options: ["is going to meet her friends for coffee tomorrow afternoon", "", "", ""], answer: "" },
+      { question: "What time ____ the concert start tomorrow night?", options: ["is going to start tomorrow night", "", "", ""], answer: "" },
+      { question: "I think it ____ rain later today.", options: ["isn't going to rain later today", "", "", ""], answer: "" },
+      { question: "He said he ____ call me later today.", options: ["wouldn't call me later today", "", "", ""], answer: "" },
+      { question: "We ____ finish the report by Friday this week.", options: ["will finish the report by Friday this week", "", "", ""], answer: "" },
+      { question: "They ____ not attend the conference next month.", options: ["will not be attending the conference next month", "", "", ""], answer: "" },
+      { question: "I hope she ____ be late for the meeting tomorrow.", options: ["won't be late for the meeting tomorrow", "", "", ""], answer: "" },
+      { question: "He promised he ____ help us with the project tomorrow.", options: ["wouldn't help us with the project tomorrow", "", "", ""], answer: "" },
+      { question: "We ____ go hiking if the weather is nice tomorrow.", options: ["will go hiking if the weather is nice tomorrow", "", "", ""], answer: "" },
+      { question: "She said she ____ join us for dinner tomorrow night.", options: ["wouldn't join us for dinner tomorrow night", "", "", ""], answer: "" },
+      { question: "I hope they ____ arrive on time tomorrow.", options: ["will arrive on time tomorrow", "", "", ""], answer: "" },
+      { question: "What time ____ the train leave tomorrow?", options: ["does", "", "", ""], answer: "" }
+  ],  
+    "Future Continuous": [
+      { question: "This time tomorrow, I ____ on the beach.", options: ["will be lying", "will lie", "am lying", "lie"], answer: "will be lying" },
+      { question: "At 8 p.m. tonight, she ____ dinner with her family.", options: ["will be having", "has", "is having", "will have"], answer: "will be having" },
+      { question: "We ____ to London this time next week.", options: ["will be flying", "fly", "will fly", "are flying"], answer: "will be flying" },
+      { question: "They ____ for the exam all day tomorrow.", options: ["will be studying", "study", "will study", "are studying"], answer: "will be studying" },
+      { question: "By the end of the month, I ____ in a new apartment.", options: ["will be living", "live", "will live", "am living"], answer: "will be living" },
+      { question: "He ____ football with his friends this afternoon.", options: ["will be playing", "plays", "play", "will play"], answer: "will be playing" },
+      { question: "At this time next year, we ____ around Europe.", options: ["will be traveling", "travel", "will travel", "are traveling"], answer: "will be traveling" },
+      { question: "She ____ at the library later today.", options: ["will be working", "works", "work", "will work"], answer: "will be working" },
+      { question: "I ____ my favorite TV show at 9 p.m. tonight.", options: ["will be watching", "watch", "am watching", "will watch"], answer: "will be watching" },
+      { question: "At 3 p.m. tomorrow, they ____ in a meeting.", options: ["will be sitting", "sit", "will sit", "are sitting"], answer: "will be sitting" },
+      { question: "You ____ when I arrive tomorrow morning.", options: ["will be sleeping", "sleep", "will sleep", "are sleeping"], answer: "will be sleeping" },
+      { question: "We ____ to music during the party.", options: ["will be dancing", "dance", "will dance", "are dancing"], answer: "will be dancing" },
+      { question: "At this time tomorrow, the children ____ in the park.", options: ["will be playing", "play", "will play", "are playing"], answer: "will be playing" },
+      { question: "He ____ at the gym when you call him.", options: ["will be exercising", "exercise", "will exercise", "is exercising"], answer: "will be exercising" },
+      { question: "I ____ my homework while you are cooking.", options: ["will be doing", "do", "will do", "am doing"], answer: "will be doing" },
+      { question: "She ____ her car to work at this time tomorrow.", options: ["will be driving", "drives", "will drive", "is driving"], answer: "will be driving" },
+      { question: "We ____ lunch together at 1 p.m. tomorrow.", options: ["will be having", "have", "will have", "are having"], answer: "will be having" },
+      { question: "They ____ the piano when the guests arrive.", options: ["will be playing", "play", "will play", "are playing"], answer: "will be playing" },
+      { question: "At 10 o'clock, she ____ a presentation to the team.", options: ["will be giving", "gives", "will give", "is giving"], answer: "will be giving" },
+      { question: "I ____ my new project all day tomorrow.", options: ["will be working on", "work on", "will work on", "am working on"], answer: "will be working on" }
+], 
+    "Present Perfect Continuous": [
+      { question: "I ____ for my keys for two hours.", options: ["have been looking", "look", "am looking", "will be looking"], answer: "have been looking" },
+      { question: "She ____ English since last year.", options: ["has been studying", "studies", "is studying", "will study"], answer: "has been studying" },
+      { question: "We ____ here for over 30 minutes.", options: ["have been waiting", "wait", "are waiting", "will wait"], answer: "have been waiting" },
+      { question: "They ____ all morning.", options: ["have been working", "work", "are working", "will work"], answer: "have been working" },
+      { question: "He ____ to fix his bike since yesterday.", options: ["has been trying", "tries", "is trying", "will try"], answer: "has been trying" },
+      { question: "I ____ this book for the past week.", options: ["have been reading", "read", "am reading", "will read"], answer: "have been reading" },
+      { question: "She ____ a lot of noise lately.", options: ["has been making", "makes", "is making", "will make"], answer: "has been making" },
+      { question: "We ____ at the same company for five years.", options: ["have been working", "work", "are working", "will work"], answer: "have been working" },
+      { question: "They ____ in the garden all afternoon.", options: ["have been playing", "play", "are playing", "will play"], answer: "have been playing" },
+      { question: "He ____ too much TV recently.", options: ["has been watching", "watches", "is watching", "will watch"], answer: "has been watching" },
+      { question: "I ____ for this moment my whole life.", options: ["have been waiting", "wait", "am waiting", "will wait"], answer: "have been waiting" },
+      { question: "She ____ up late these days.", options: ["has been staying", "stays", "is staying", "will stay"], answer: "has been staying" },
+      { question: "We ____ more customers than usual lately.", options: ["have been getting", "get", "are getting", "will get"], answer: "have been getting" },
+      { question: "They ____ about moving to a bigger house.", options: ["have been talking", "talk", "are talking", "will talk"], answer: "have been talking" },
+      { question: "He ____ better at playing the guitar.", options: ["has been getting", "gets", "is getting", "will get"], answer: "has been getting" },
+      { question: "I ____ to improve my cooking skills.", options: ["have been trying", "try", "am trying", "will try"], answer: "have been trying" },
+      { question: "She ____ with her friend on the phone for hours.", options: ["has been talking", "talks", "is talking", "will talk"], answer: "has been talking" },
+      { question: "We ____ plans for our summer vacation.", options: ["have been making", "make", "are making", "will make"], answer: "have been making" },
+      { question: "They ____ the same movie over and over again.", options: ["have been watching", "watch", "are watching", "will watch"], answer: "have been watching" },
+      { question: "He ____ to fix the computer since this morning.", options: ["has been trying", "tries", "is trying", "will try"], answer: "has been trying" }
+],
+    "Past Perfect Continuous": [
+      { question: "I ____ for an hour before the bus finally arrived.", options: ["had been waiting", "waited", "was waiting", "have been waiting"], answer: "had been waiting" },
+      { question: "She ____ all night before she finished the report.", options: ["had been working", "worked", "was working", "has been working"], answer: "had been working" },
+      { question: "We ____ for thirty minutes when it started to rain.", options: ["had been running", "ran", "were running", "have been running"], answer: "had been running" },
+      { question: "They ____ in the garden for hours before it got dark.", options: ["had been playing", "played", "were playing", "have been playing"], answer: "had been playing" },
+      { question: "He ____ English for two years before he moved to London.", options: ["had been studying", "studied", "was studying", "has been studying"], answer: "had been studying" },
+      { question: "I ____ for the phone to ring all morning.", options: ["had been waiting", "waited", "was waiting", "have been waiting"], answer: "had been waiting" },
+      { question: "She ____ at the company for five years before she got promoted.", options: ["had been working", "worked", "was working", "has been working"], answer: "had been working" },
+      { question: "We ____ for over an hour before they let us in.", options: ["had been standing", "stood", "were standing", "have been standing"], answer: "had been standing" },
+      { question: "They ____ in the queue since early morning.", options: ["had been waiting", "waited", "were waiting", "have been waiting"], answer: "had been waiting" },
+      { question: "He ____ for months before he finally found a job.", options: ["had been applying", "applied", "was applying", "has been applying"], answer: "had been applying" },
+      { question: "I ____ to fix my computer for three hours before I gave up.", options: ["had been trying", "tried", "was trying", "have been trying"], answer: "had been trying" },
+      { question: "She ____ too much coffee that day, so she couldn't sleep.", options: ["had been drinking", "drank", "was drinking", "has been drinking"], answer: "had been drinking" },
+      { question: "We ____ for a taxi for twenty minutes before one stopped.", options: ["had been waiting", "waited", "were waiting", "have been waiting"], answer: "had been waiting" },
+      { question: "They ____ football when it suddenly started raining.", options: ["had been playing", "played", "were playing", "have been playing"], answer: "had been playing" },
+      { question: "He ____ to call her all week but never managed to.", options: ["had been meaning", "meant", "was meaning", "has been meaning"], answer: "had been meaning" },
+      { question: "I ____ in traffic for over an hour before reaching the office.", options: ["had been sitting", "sat", "was sitting", "have been sitting"], answer: "had been sitting" },
+      { question: "She ____ for a new apartment for several months before she found one.", options: ["had been looking", "looked", "was looking", "has been looking"], answer: "had been looking" },
+      { question: "We ____ about the problem before you mentioned it.", options: ["had been talking", "talked", "were talking", "have been talking"], answer: "had been talking" },
+      { question: "They ____ for the train for half an hour before it arrived.", options: ["had been waiting", "waited", "were waiting", "have been waiting"], answer: "had been waiting" },
+      { question: "He ____ for years before he became successful.", options: ["had been working", "worked", "was working", "has been working"], answer: "had been working" }
+],
+    "Future Perfect Continuous": [
+      { question: "By next month, I ____ here for two years.", options: ["will have been working", "will work", "will be working", "work"], answer: "will have been working" },
+      { question: "By the end of this year, she ____ in Paris for five years.", options: ["will have been living", "will live", "will be living", "lives"], answer: "will have been living" },
+      { question: "By 5 p.m., we ____ for over eight hours.", options: ["will have been driving", "will drive", "will be driving", "drive"], answer: "will have been driving" },
+      { question: "By the time you arrive, they ____ for two hours.", options: ["will have been waiting", "will wait", "will be waiting", "wait"], answer: "will have been waiting" },
+      { question: "By July, I ____ this project for six months.", options: ["will have been working on", "will work on", "will be working on", "work on"], answer: "will have been working on" },
+      { question: "By next Friday, she ____ for the company for ten years.", options: ["will have been working", "will work", "will be working", "works"], answer: "will have been working" },
+      { question: "By the time we get there, it ____ snowing for hours.", options: ["will have been snowing", "will snow", "will be snowing", "snows"], answer: "will have been snowing" },
+      { question: "By this time next week, I ____ for my exams for a month.", options: ["will have been studying", "will study", "will be studying", "study"], answer: "will have been studying" },
+      { question: "By the end of the day, they ____ since morning.", options: ["will have been traveling", "will travel", "will be traveling", "travel"], answer: "will have been traveling" },
+      { question: "By tomorrow evening, he ____ his essay for a week.", options: ["will have been writing", "will write", "will be writing", "writes"], answer: "will have been writing" },
+      { question: "By the end of this course, I ____ English for three years.", options: ["will have been learning", "will learn", "will be learning", "learn"], answer: "will have been learning" },
+      { question: "By 10 o'clock, she ____ for the guests for over an hour.", options: ["will have been preparing", "will prepare", "will be preparing", "prepares"], answer: "will have been preparing" },
+      { question: "By the time you finish, we ____ here for ages.", options: ["will have been sitting", "will sit", "will be sitting", "sit"], answer: "will have been sitting" },
+      { question: "By next winter, they ____ the house for over a year.", options: ["will have been building", "will build", "will be building", "build"], answer: "will have been building" },
+      { question: "By the time we meet again, I ____ abroad for six months.", options: ["will have been living", "will live", "will be living", "live"], answer: "will have been living" },
+      { question: "By the end of the month, she ____ piano lessons for two years.", options: ["will have been taking", "will take", "will be taking", "takes"], answer: "will have been taking" },
+      { question: "By this time tomorrow, I ____ without a break for five hours.", options: ["will have been working", "will work", "will be working", "work"], answer: "will have been working" },
+      { question: "By July, we ____ this research for almost a year.", options: ["will have been conducting", "will conduct", "will be conducting", "conduct"], answer: "will have been conducting" },
+      { question: "By the time the sun sets, they ____ on the road since morning.", options: ["will have been driving", "will drive", "will be driving", "drive"], answer: "will have been driving" },
+      { question: "By the end of next week, you ____ this training for two months.", options: ["will have been attending", "will attend", "will be attending", "attend"], answer: "will have been attending" }
+]
+};
+  document.getElementById('exercise-area').style.display = 'block';
+  document.getElementById('exercise-title').innerText = `Bài tập - ${tense}`;
+  document.getElementById('exercise-questions').innerHTML = "Đang tạo bài tập...";
+
+  // Hàm đảo ngẫu nhiên
+  function shuffleArray(arr) {
+    return arr
+      .map(value => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+  }
+
+  // Tạo vòng tròn điểm
+  if (!document.getElementById('score-circle')) {
+    const circle = document.createElement('div');
+    circle.id = 'score-circle';
+    circle.style = `
+      position:fixed;top:32px;right:32px;
+      width:70px;height:70px;
+      background:transparent;
+      border:4px solid #1976d2;
+      color:#1976d2;
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:2rem;font-weight:bold;
+      z-index:9999;user-select:none;
+    `;
+    circle.innerHTML = '<span id="score-circle-value">0</span>';
+    document.body.appendChild(circle);
+  }
+  document.getElementById('score-circle').style.display = 'flex';
+  document.getElementById('score-circle-value').textContent = '0';
+
+  let questions = manualQuestions[tense] || [];
+  if (questions.length === 0) {
+    document.getElementById('exercise-questions').innerHTML = "<p>Chưa có câu hỏi cho thì này.</p>";
+    return;
+  }
+
+  // Đảo ngẫu nhiên câu hỏi và đảm bảo không trùng
+  questions = shuffleArray(questions);
+  questions = questions.slice(0, 20); // Giới hạn số câu hỏi tối đa là 20
+
+  let currentScore = 0;
+
+  // CSS đẹp
+  const style = document.createElement("style");
+  style.textContent = `
+    .question-block {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 15px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .question-block h4 {
+      color: #1976d2;
+      margin-bottom: 15px;
+    }
+    .option-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .ex-option {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #f0f0f0;
+      cursor: pointer;
+      flex: 1;
+      min-width: 80px;
+      transition: background 0.3s, transform 0.2s;
+      font-size: 1rem;
+    }
+    .ex-option:hover:not(:disabled) {
+      background: #e3f2fd;
+      transform: scale(1.03);
+    }
+    .ex-option.correct {
+      background: #4CAF50 !important;
+      color: #fff !important;
+    }
+    .ex-option.wrong {
+      background: #f44336 !important;
+      color: #fff !important;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Render câu hỏi
+  let html = '';
+  questions.forEach((q, idx) => {
+    html += `
+      <div class="question-block" data-qidx="${idx}">
+        <h4>Câu ${idx + 1}. ${q.question} (0.5 điểm)</h4>
+        <div class="option-row">
+          ${q.options.map(opt => `
+            <button class="ex-option" data-qidx="${idx}" data-ans="${opt}">
+              ${opt}
+            </button>
+          `).join('')}
+        </div>
+        <div class="ex-feedback" style="min-height:20px;margin-top:5px;"></div>
+      </div>
+    `;
+  });
+
+  html += `
+    <div style="margin-top:2rem;font-size:1.2rem;font-weight:bold;">
+      Tổng điểm: <span id="final-score">0</span> / ${(questions.length * 0.5).toFixed(1)}
+    </div>
+  `;
+  document.getElementById('exercise-questions').innerHTML = html;
+
+  let answered = Array(questions.length).fill(false);
+
+  // Xử lý chọn đáp án
+  document.querySelectorAll('.ex-option').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const qidx = parseInt(this.dataset.qidx);
+      if (answered[qidx]) return;
+
+      const userAns = this.dataset.ans;
+      const correctAns = questions[qidx].answer;
+      const parentBlock = this.closest('.question-block');
+      const feedback = parentBlock.querySelector('.ex-feedback');
+
+      if (userAns === correctAns) {
+        this.classList.add("correct");
+        feedback.innerHTML = `<span style="color:green;">Đúng! +0.5 điểm</span>`;
+        currentScore += 0.5;
+        showScoreEffect(this, "+0.5");
+      } else {
+        this.classList.add("wrong");
+        feedback.innerHTML = `<span style="color:red;">Sai!</span>`;
+      }
+
+      answered[qidx] = true;
+      parentBlock.querySelectorAll('.ex-option').forEach(b => b.disabled = true);
+
+      document.getElementById('score-circle-value').textContent = currentScore.toFixed(1);
+      document.getElementById('final-score').textContent = currentScore.toFixed(1);
+    });
+  });
+
+  // Hiệu ứng +0.5
+  function showScoreEffect(button, text) {
+    const effect = document.createElement('span');
+    effect.textContent = text;
+    effect.style.position = 'absolute';
+    effect.style.color = 'green';
+    effect.style.fontWeight = 'bold';
+    effect.style.left = (button.getBoundingClientRect().left + window.scrollX + button.offsetWidth / 2 - 10) + "px";
+    effect.style.top = (button.getBoundingClientRect().top + window.scrollY - 10) + "px";
+    effect.style.opacity = '1';
+    effect.style.transition = 'all 0.8s ease-out';
+    document.body.appendChild(effect);
+
+    requestAnimationFrame(() => {
+      effect.style.transform = 'translateY(-20px)';
+      effect.style.opacity = '0';
+    });
+
+    setTimeout(() => effect.remove(), 800);
+  }
+}
+
+
+
+/* Phần Câu */ 
+/* Nút Thoát Bài Tập */
+function closeExercise() {
+  document.getElementById('exercise-area').style.display = 'none';
+  if (document.getElementById('score-circle')) {
+    document.getElementById('score-circle').style.display = 'none';
+  }
+}
+const expressions = {
+  "Biểu hiện": [
+    { en: "How are you?", ipa: "/haʊ ɑː juː/", vn: "Bạn khỏe không?" },
+    { en: "Nice to meet you.", ipa: "/naɪs tə miːt juː/", vn: "Rất vui được gặp bạn." },
+    { en: "Thank you very much.", ipa: "/θæŋk juː ˈvɛri mʌtʃ/", vn: "Cảm ơn bạn rất nhiều." },
+    { en: "I love you.", ipa: "/aɪ lʌv juː/", vn: "Tôi yêu bạn." },
+    { en: "Goodbye!", ipa: "/ɡʊdˈbaɪ/", vn: "Tạm biệt!" }
+  ],
+  "Cơ thể và sức khỏe": [
+    { en: "Take care of your health.", ipa: "/teɪk keə əv jɔː hɛlθ/", vn: "Chăm sóc sức khỏe của bạn." },
+    { en: "I have a headache.", ipa: "/aɪ hæv ə ˈhɛdˌeɪk/", vn: "Tôi bị đau đầu." },
+    { en: "You should see a doctor.", ipa: "/juː ʃʊd siː ə ˈdɒktər/", vn: "Bạn nên đi khám bác sĩ." },
+    { en: "Drink plenty of water.", ipa: "/drɪŋk ˈplɛnti əv ˈwɔːtə/", vn: "Uống nhiều nước." },
+    { en: "Get well soon!", ipa: "/ɡɛt wɛl suːn/", vn: "Chúc bạn mau khỏe!" }
+  ],
+  "Gia đình": [
+    { en: "Family is everything.", ipa: "/ˈfæmɪli ɪz ˈɛvrɪθɪŋ/", vn: "Gia đình là tất cả." },
+    { en: "I love my parents.", ipa: "/aɪ lʌv maɪ ˈpɛərənts/", vn: "Tôi yêu cha mẹ của tôi." },
+    { en: "Do you have any siblings?", ipa: "/duː juː hæv ˈɛni ˈsɪblɪŋz/", vn: "Bạn có anh chị em không?" },
+    { en: "My brother is younger than me.", ipa: "/maɪ ˈbrʌðər ɪz ˈjʌŋər ðæn miː/", vn: "Em trai tôi nhỏ hơn tôi." },
+    { en: "We are a close-knit family.", ipa: "/wiː ɑːr ə kləʊs-nɪt ˈfæmɪli/", vn: "Chúng tôi là một gia đình gắn bó." }
+  ], 
+  "Thời tiết": [
+    { en: "It's sunny today.", ipa: "/ɪts ˈsʌni təˈdeɪ/", vn: "Hôm nay trời nắng." },
+    { en: "I love the rain.", ipa: "/aɪ lʌv ðə reɪn/", vn: "Tôi thích mưa." },
+    { en: "It's very cold outside.", ipa: "/ɪts ˈvɛri kəʊld ˈaʊtsaɪd/", vn: "Ngoài trời rất lạnh." },
+    { en: "The weather is perfect for a picnic.", ipa: "/ðə ˈwɛðər ɪz ˈpɜːrfɪkt fɔːr ə ˈpɪknɪk/", vn: "Thời tiết rất lý tưởng cho một buổi dã ngoại." },
+    { en: "I hate the humidity.", ipa: "/aɪ heɪt ðə hjuːˈmɪdəti/", vn: "Tôi ghét độ ẩm." }
+  ],
+  "Thức ăn và đồ uống": [
+    { en: "I love Italian food.", ipa: "/aɪ lʌv ɪˈtæljən fuːd/", vn: "Tôi thích đồ ăn Ý." },
+    { en: "Can I have a glass of water?", ipa: "/kæn aɪ hæv ə ɡlɑːs əv ˈwɔːtə/", vn: "Tôi có thể lấy một cốc nước không?" },
+    { en: "This dish is delicious!", ipa: "/ðɪs dɪʃ ɪz dɪˈlɪʃəs/", vn: "Món này rất ngon!" },
+    { en: "I prefer coffee over tea.", ipa: "/aɪ prɪˈfɜːr ˈkɔːfi ˈoʊvər tiː/", vn: "Tôi thích cà phê hơn trà." },
+    { en: "Do you like spicy food?", ipa: "/duː juː laɪk ˈspaɪsi fuːd/", vn: "Bạn có thích đồ ăn cay không?" }
+  ], 
+  "Nhà": [
+    { en: "My house is my castle.", ipa: "/maɪ haʊs ɪz maɪ ˈkæsəl/", vn: "Nhà tôi là lâu đài của tôi." },
+    { en: "I love decorating my room.", ipa: "/aɪ lʌv ˈdɛkəreɪtɪŋ maɪ ruːm/", vn: "Tôi thích trang trí phòng của mình." },
+    { en: "The kitchen is the heart of the home.", ipa: "/ðə ˈkɪtʃən ɪz ðə hɑːrt əv ðə hoʊm/", vn: "Nhà bếp là trái tim của ngôi nhà." },
+    { en: "We have a beautiful garden.", ipa: "/wiː hæv ə ˈbjuːtəfəl ˈɡɑːrdən/", vn: "Chúng tôi có một khu vườn đẹp." },
+    { en: "Home is where the heart is.", ipa: "/hoʊm ɪz wɛr ðə hɑːrt ɪz/", vn: "Nhà là nơi trái tim ở đó." }
+  ], 
+  "Công việc": [
+    { en: "I love my job.", ipa: "/aɪ lʌv maɪ dʒɒb/", vn: "Tôi yêu công việc của mình." },
+    { en: "Do you work from home?", ipa: "/duː juː wɜːrk frəm hoʊm/", vn: "Bạn làm việc tại nhà không?" },
+    { en: "My boss is very supportive.", ipa: "/maɪ bɔːs ɪz ˈvɛri səˈpɔːrtɪv/", vn: "Sếp của tôi rất hỗ trợ." },
+    { en: "I need to finish this report by Friday.", ipa: "/aɪ niːd tə ˈfɪnɪʃ ðɪs rɪˈpɔːrt baɪ ˈfraɪdeɪ/", vn: "Tôi cần hoàn thành báo cáo này trước thứ Sáu." },
+    { en: "Teamwork makes the dream work.", ipa: "/ˈtiːmwɜːrk meɪks ðə driːm wɜːrk/", vn: "Làm việc nhóm biến giấc mơ thành hiện thực." }
+  ], 
+  "Địa điểm": [
+    { en: "Where is the nearest hospital?", ipa: "/wɛr ɪz ðə ˈnɪərɪst ˈhɒspɪtl/", vn: "Bệnh viện gần nhất ở đâu?" },
+    { en: "I love visiting new places.", ipa: "/aɪ lʌv ˈvɪzɪtɪŋ nuː ˈpleɪsɪz/", vn: "Tôi thích thăm những nơi mới." },
+    { en: "The museum is worth a visit.", ipa: "/ðə mjuːˈziːəm ɪz wɜːrθ ə ˈvɪzɪt/", vn: "Bảo tàng đáng để thăm." },
+    { en: "Can you show me the way?", ipa: "/kæn juː ʃoʊ miː ðə weɪ/", vn: "Bạn có thể chỉ đường cho tôi không?" },
+    { en: "This city is full of life.", ipa: "/ðɪs ˈsɪti ɪz fʊl əv laɪf/", vn: "Thành phố này đầy sức sống." }
+  ],
+  "Câu hỏi": [
+    { en: "What time is it?", ipa: "/wɒt taɪm ɪz ɪt/", vn: "Bây giờ là mấy giờ?" },
+    { en: "How much does this cost?", ipa: "/haʊ mʌtʃ dʌz ðɪs kɒst/", vn: "Cái này giá bao nhiêu?" },
+    { en: "Where are you going?", ipa: "/wɛr ɑːr juː ˈɡoʊɪŋ/", vn: "Bạn đang đi đâu?" },
+    { en: "Why did you do that?", ipa: "/waɪ dɪd juː duː ðæt/", vn: "Tại sao bạn làm vậy?" },
+    { en: "Can you help me?", ipa: "/kæn juː hɛlp miː/", vn: "Bạn có thể giúp tôi không?" }
+  ],
+  "Mua sắm": [
+    { en: "I want to buy this.", ipa: "/aɪ wɒnt tə baɪ ðɪs/", vn: "Tôi muốn mua cái này." },
+    { en: "Do you have a discount?", ipa: "/duː juː hæv ə ˈdɪskaʊnt/", vn: "Bạn có giảm giá không?" },
+    { en: "Can I try it on?", ipa: "/kæn aɪ traɪ ɪt ɒn/", vn: "Tôi có thể thử nó không?" },
+    { en: "This is too expensive.", ipa: "/ðɪs ɪz tuː ɪkˈspɛnsɪv/", vn: "Cái này quá đắt." },
+    { en: "Where is the nearest store?", ipa: "/wɛr ɪz ðə ˈnɪərɪst stɔːr/", vn: "Cửa hàng gần nhất ở đâu?" }
+  ], 
+  "Thể thao": [
+    { en: "I love playing football.", ipa: "/aɪ lʌv ˈpleɪɪŋ ˈfʊtbɔːl/", vn: "Tôi thích chơi bóng đá." },
+    { en: "Do you like basketball?", ipa: "/duː juː laɪk ˈbɑːskətbɔːl/", vn: "Bạn có thích bóng rổ không?" },
+    { en: "She is a great swimmer.", ipa: "/ʃiː ɪz ə ɡreɪt ˈswɪmər/", vn: "Cô ấy là một vận động viên bơi lội giỏi." },
+    { en: "We play tennis every weekend.", ipa: "/wiː pleɪ ˈtɛnɪs ˈɛvri ˈwiːkɛnd/", vn: "Chúng tôi chơi quần vợt mỗi cuối tuần." },
+    { en: "He won the marathon.", ipa: "/hiː wʌn ðə ˈmærəθən/", vn: "Anh ấy đã thắng cuộc thi marathon." }
+  ],
+  "Nghiên cứu": [
+    { en: "I love reading books.", ipa: "/aɪ lʌv ˈriːdɪŋ bʊks/", vn: "Tôi thích đọc sách." },
+    { en: "Do you like science?", ipa: "/duː juː laɪk ˈsaɪəns/", vn: "Bạn có thích khoa học không?" },
+    { en: "She is studying history.", ipa: "/ʃiː ɪz ˈstʌdiɪŋ ˈhɪstəri/", vn: "Cô ấy đang học lịch sử." },
+    { en: "We need to do more research.", ipa: "/wiː niːd tə duː mɔːr rɪˈsɜːrtʃ/", vn: "Chúng ta cần làm nhiều nghiên cứu hơn." },
+    { en: "He is a famous scientist.", ipa: "/hiː ɪz ə ˈfeɪməs ˈsaɪəntɪst/", vn: "Ông ấy là một nhà khoa học nổi tiếng." }
+  ],
+  "Vận chuyển": [
+    { en: "I need a taxi.", ipa: "/aɪ niːd ə ˈtæksi/", vn: "Tôi cần một chiếc taxi." },
+    { en: "Where is the bus stop?", ipa: "/wɛr ɪz ðə bʌs stɒp/", vn: "Trạm xe buýt ở đâu?" },
+    { en: "Can you drive me to the airport?", ipa: "/kæn juː draɪv miː tə ði ˈeəpɔːrt/", vn: "Bạn có thể lái xe đưa tôi đến sân bay không?" },
+    { en: "The train is late.", ipa: "/ðə treɪn ɪz leɪt/", vn: "Tàu đến muộn." },
+    { en: "I love traveling by plane.", ipa: "/aɪ lʌv ˈtrævəlɪŋ baɪ pleɪn/", vn: "Tôi thích đi du lịch bằng máy bay." }
+  ],
+  "Du lịch": [
+    { en: "I love traveling.", ipa: "/aɪ lʌv ˈtrævəlɪŋ/", vn: "Tôi thích du lịch." },
+    { en: "Where is the nearest hotel?", ipa: "/wɛr ɪz ðə ˈnɪərɪst hoʊˈtɛl/", vn: "Khách sạn gần nhất ở đâu?" },
+    { en: "Can you recommend a good restaurant?", ipa: "/kæn juː ˌrɛkəˈmɛnd ə ɡʊd ˈrɛstərɒnt/", vn: "Bạn có thể giới thiệu một nhà hàng tốt không?" },
+    { en: "I want to visit Paris.", ipa: "/aɪ wɒnt tə ˈvɪzɪt ˈpærɪs/", vn: "Tôi muốn thăm Paris." },
+    { en: "The view is amazing!", ipa: "/ðə vjuː ɪz əˈmeɪzɪŋ/", vn: "Cảnh đẹp tuyệt vời!" }
+  ]
+};
+
+function showExpressions(topic) {
+  document.getElementById('expression-area').style.display = 'block';
+  document.querySelector('#expression-area h2').textContent = topic;
+  let html = '';
+  (expressions[topic] || []).forEach(ex => {
+    html += `
+      <div class="expression-box">
+        <div class="expression-ipa"><b>Phiên âm:</b> ${ex.ipa}</div>
+        <div class="expression-en">
+          <b>Câu:</b> ${ex.en}
+          <button onclick="speakSentence('${ex.en.replace(/'/g,"\\'")}')" title="Nghe câu này" style="margin-left:8px; font-size:1.2rem; background:none; border:none; cursor:pointer;">🔊</button>
+        </div>
+        <div class="expression-vn"><b>Tiếng Việt:</b> ${ex.vn}</div>
+      </div>
+    `;
+  });
+  document.getElementById('expression-list').innerHTML = html || "<i>Chưa có câu cho chủ đề này.</i>";
+}
+function closeExpression() {
+  document.getElementById('expression-area').style.display = 'none';
+}
+function speakSentence(sentence) {
+  const synth = window.speechSynthesis;
+  const utter = new SpeechSynthesisUtterance(sentence);
+  utter.lang = 'en-US';
+  synth.cancel();
+  synth.speak(utter);
+}
+
+//Trò chơi nhiều lựa chọn
+let currentWord, currentOptions, attempts;
+
+document.querySelectorAll(".game-box").forEach(box=>{
+  if(box.querySelector(".game-label").innerText==="Nhiều lựa chọn"){
+    box.onclick = ()=> openMultipleChoice();
+  }
+});
+
+function openMultipleChoice(){
+  document.getElementById("multiple-choice-area").style.display="block";
+  nextQuestion();
+}
+function closeMultipleChoice(){
+  document.getElementById("multiple-choice-area").style.display="none";
+}
+
+function generateQuestion(){
+  let word = vocabulary[Math.floor(Math.random()*vocabulary.length)];
+  let correct = word.vn;
+
+  // chọn 3 đáp án sai
+  let wrongs = vocabulary.filter(w=>w.vn!==correct);
+  wrongs = wrongs.sort(()=>0.5-Math.random()).slice(0,3).map(w=>w.vn);
+
+  let options = [...wrongs, correct].sort(()=>0.5-Math.random());
+
+  return {word, options, correct};
+}
+
+function renderQuestion(){
+  document.getElementById("mc-question").innerText = currentWord.eng;
+  let container = document.getElementById("mc-options");
+  container.innerHTML="";
+  currentOptions.forEach(opt=>{
+    let div=document.createElement("div");
+    div.className="mc-option";
+    div.innerText=opt;
+    div.onclick=()=>chooseOption(div,opt);
+    container.appendChild(div);
+  });
+  document.getElementById("mc-retry").style.display="none";
+  document.getElementById("mc-next").style.display="none";
+  // 🔊 Tự động phát âm từ
+  speakWord(currentWord.eng);
+}
+
+function chooseOption(el,opt){
+  if(attempts <= 0) return;
+
+  if(opt === currentWord.vn){
+    // chọn đúng
+    el.classList.add("disabled");
+    el.style.background="#4caf50"; el.style.color="#fff";
+    el.innerHTML = opt + '<span class="circle-mark green">✔</span>';
+    playSound("correct");
+    document.getElementById("mc-retry").style.display="inline-block";
+    document.getElementById("mc-next").style.display="inline-block";
+    attempts = 0;
+    addWordToFlashcards(currentWord);
+  } else {
+    // chọn sai
+    el.classList.add("disabled");
+    el.style.background="#e53935"; el.style.color="#fff";
+    el.innerHTML = opt + '<span class="circle-mark red">✖</span>';
+    playSound("wrong");
+    attempts--;
+
+    if(attempts === 0){
+      // hết lượt → show đáp án đúng và chỉ cho "Tiếp theo"
+      let opts = document.querySelectorAll(".mc-option");
+      opts.forEach(d=>{
+        if(d.innerText===currentWord.vn){
+          d.style.background="#4caf50"; d.style.color="#fff";
+          d.innerHTML = currentWord.vn + '<span class="circle-mark green">✔</span>';
+        }
+      });
+      document.getElementById("mc-retry").style.display="none";
+      document.getElementById("mc-next").style.display="inline-block";
+    }
+  }
+}
+
+  function retryQuestion(){ renderQuestion(); attempts=3; }
+  function nextQuestion(){
+    let q=generateQuestion();
+    currentWord=q.word;
+    currentOptions=q.options;
+    attempts=3;
+    renderQuestion();
+  }
+  function speakWord(word){
+    let utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-US"; // nếu muốn giọng UK thì đổi thành "en-GB"
+    speechSynthesis.cancel(); // hủy đọc từ trước (nếu còn)
+    speechSynthesis.speak(utterance);
+  }
+
+  // ÂM THANH ĐÚNG/SAI 
+  function playSound(type){
+    if(type === "correct"){
+      document.getElementById("sound-correct").play();
+    } else if(type === "wrong"){
+      document.getElementById("sound-wrong").play();
+    }
+  }
+  function playSound(type){
+  let audio = (type==="correct") ? document.getElementById("sound-correct") : document.getElementById("sound-wrong");
+  if(audio){
+    audio.pause();        // ⏸ dừng âm thanh nếu đang phát
+    audio.currentTime = 0; // ⏪ tua về đầu
+    audio.play();          // ▶ phát lại
+  }
+}
+
+  // ĐOÁN TỪ
+  let gwCurrentWord, gwCurrentOptions, gwAttempts;
+
+  document.querySelectorAll(".game-box").forEach(box=>{
+    if(box.querySelector(".game-label").innerText==="Đoán Từ"){
+      box.onclick = ()=> openGuessWord();
+    }
+  });
+
+  function openGuessWord(){
+    document.getElementById("guess-word-area").style.display="block";
+    nextGuessWord();
+  }
+  function closeGuessWord(){
+    document.getElementById("guess-word-area").style.display="none";
+  }
+
+  function generateGuessWord(){
+    let word = vocabulary[Math.floor(Math.random()*vocabulary.length)];
+    let correct = word.eng;
+
+    // chọn 3 đáp án sai
+    let wrongs = vocabulary.filter(w=>w.eng!==correct);
+    wrongs = wrongs.sort(()=>0.5-Math.random()).slice(0,3).map(w=>w.eng);
+
+    let options = [...wrongs, correct].sort(()=>0.5-Math.random());
+
+    return {word, options, correct};
+  }
+
+  function renderGuessWord(){
+    document.getElementById("gw-question").innerText = gwCurrentWord.vn;
+    let container = document.getElementById("gw-options");
+    container.innerHTML="";
+    gwCurrentOptions.forEach(opt=>{
+      let div=document.createElement("div");
+      div.className="mc-option";
+      div.innerText=opt;
+      div.onclick=()=>chooseGuessOption(div,opt);
+      container.appendChild(div);
+    });
+    document.getElementById("gw-retry").style.display="none";
+    document.getElementById("gw-next").style.display="none";
+  }
+
+  function chooseGuessOption(el,opt){
+    if(gwAttempts<=0) return;
+
+    if(opt===gwCurrentWord.eng){
+      el.classList.add("disabled");
+      el.style.background="#4caf50"; el.style.color="#fff";
+      el.innerHTML = opt + '<span class="circle-mark green">✔</span>';
+      // 🔊 Phát âm hiệu ứng đúng
+      playSound("correct");
+      // 🔊 phát âm khi chọn đúng
+      speakWord(opt);
+      document.getElementById("gw-retry").style.display="inline-block";
+      document.getElementById("gw-next").style.display="inline-block";
+      gwAttempts=0;
+      addWordToFlashcards(gwCurrentWord);
+    } else {
+      el.classList.add("disabled");
+      el.style.background="#e53935"; el.style.color="#fff";
+      el.innerHTML = opt + '<span class="circle-mark red">✖</span>';
+      // 🔊 Phát âm hiệu ứng 
+      playSound("wrong");
+      // 🔊 phát âm từ vừa chọn (dù sai cũng đọc để luyện nghe)
+      speakWord(opt);
+      gwAttempts--;
+      if(gwAttempts===0){
+        // show đáp án đúng
+        let opts = document.querySelectorAll("#gw-options .mc-option");
+        opts.forEach(d=>{
+          if(d.innerText===gwCurrentWord.eng){
+            d.style.background="#4caf50"; d.style.color="#fff";
+            d.innerHTML = gwCurrentWord.eng + '<span class="circle-mark green">✔</span>';
+          }
+        });
+        document.getElementById("gw-retry").style.display="none";
+        document.getElementById("gw-next").style.display="inline-block";
+      }
+    }
+  }
+  function retryGuessWord(){ renderGuessWord(); gwAttempts=3; }
+  function nextGuessWord(){
+    let q=generateGuessWord();
+    gwCurrentWord=q.word;
+    gwCurrentOptions=q.options;
+    gwAttempts=3;
+    renderGuessWord();
+  }
+
+//Bảng Điều Khiển
+  let cbCurrentWord = null;
+  let cbPairs = {};
+  let cbSelected = []; // lưu 6 từ của bài hiện tại
+  let cbStartIndex = 0; // vị trí từ trong vocabulary
+
+  document.querySelectorAll(".game-box").forEach(box=>{
+  if(box.querySelector(".game-label").innerText==="Bảng điều khiển"){
+    box.onclick = ()=> openControlBoard();
+  }
+});
+
+function openControlBoard() {
+  document.getElementById("control-board-area").style.display = "block";
+  setupControlBoard();
+}
+
+function closeControlBoard() {
+  document.getElementById("control-board-area").style.display = "none";
+  document.getElementById("cb-pronunciation").innerText = "";
+}
+
+  function setupControlBoard() {
+  const grid = document.getElementById("cb-grid");
+  grid.innerHTML = "";
+  document.getElementById("cb-pronunciation").innerText = "";
+  document.getElementById("cb-actions").style.display = "none"; // ẩn nút lặp lại & tiếp theo
+
+  // 👉 Lấy 6 từ từ mảng vocabulary bắt đầu từ cbStartIndex
+  cbSelected = vocabulary.slice(cbStartIndex, cbStartIndex + 6);
+
+  // Nếu không đủ 6 từ, quay vòng lại từ đầu
+  if (cbSelected.length < 6) {
+    cbStartIndex = 0;
+    cbSelected = vocabulary.slice(cbStartIndex, cbStartIndex + 6);
+  }
+
+  // Tạo danh sách gồm cả eng và pronunciation
+  let mixedList = [];
+  cbPairs = {};
+
+  cbSelected.forEach(item => {
+    mixedList.push({ type: "eng", text: item.eng, pair: item.pronunciation });
+    mixedList.push({ type: "ipa", text: item.pronunciation, pair: item.eng });
+    cbPairs[item.eng] = item.pronunciation;
+    cbPairs[item.pronunciation] = item.eng;
+  });
+
+  // Trộn lẫn 12 ô
+  mixedList.sort(() => 0.5 - Math.random());
+
+  mixedList.forEach(word => {
+    const div = document.createElement("div");
+    div.className = "cb-card";
+    div.innerText = word.text;
+    div.onclick = () => handleCBClick(div, word.text);
+    grid.appendChild(div);
+  });
+}
+function handleCBClick(card, text) {
+  if (card.classList.contains("correct") || card.classList.contains("gray")) return;
+
+  if (!cbCurrentWord) {
+    cbCurrentWord = { card, text };
+    card.classList.add("gray");
+  } else {
+    if (cbPairs[cbCurrentWord.text] === text) {
+      cbCurrentWord.card.classList.remove("gray");
+      cbCurrentWord.card.classList.add("correct");
+      card.classList.add("correct");
+
+      document.getElementById("cb-pronunciation").innerText = cbPairs[text];
+      cbCurrentWord = null;
+
+      playSound("correct");
+
+      addWordToFlashcards({ eng: text, vn: "", pronunciation: cbPairs[text] });
+
+      // 👉 Kiểm tra nếu hoàn thành hết
+      if (document.querySelectorAll(".cb-card.correct").length === 12) {
+        document.getElementById("cb-actions").style.display = "block";
+      }
+    } else {
+      card.classList.add("incorrect");
+
+      playSound("wrong");
+
+      setTimeout(() => {
+        card.classList.remove("incorrect");
+      }, 800);
+      cbCurrentWord.card.classList.remove("gray"); // bỏ màu ô sai
+      cbCurrentWord = null;
+    }
+  }
+}
+function repeatControlBoard() {
+  setupControlBoard(); // giữ nguyên cbStartIndex, load lại 6 từ cũ
+}
+
+function nextControlBoard() {
+  cbStartIndex += 6; // sang 6 từ tiếp theo
+  setupControlBoard();
+}
+
+// Flash Cards 
+let learnedWords = [];
+
+function addWordToFlashcards(wordObj) {
+  if (!learnedWords.find(w => w.eng === wordObj.eng)) {
+    learnedWords.push(wordObj);
+    updateFlashcards();
+  }
+}
+
+function updateFlashcards() {
+  const container = document.getElementById("flashcard-container");
+  if (!container) return;
+  container.innerHTML = "";
+
+  // Render các thẻ đã học
+  learnedWords.forEach(word => {
+  const card = document.createElement("div");
+  card.className = "flashcard";
+  card.innerHTML = `
+    <div class="flashcard-inner">
+      <div class="flashcard-front">
+        <h3>${word.eng}</h3>
+      </div>
+      <div class="flashcard-back">
+        <p>${word.vn}</p>
+        <small>${word.pronunciation}</small>
+      </div>
+    </div>
+  `;
+  card.addEventListener("click", () => {
+    card.classList.toggle("flipped");
+  });
+  container.appendChild(card);
+});
+  
+
+  // Render thẻ dấu ? cho phần còn lại (giả sử 6 ô)
+  for (let i = learnedWords.length; i < 32; i++) {
+    const card = document.createElement("div");
+    card.className = "flashcard placeholder";
+    card.innerHTML = `<span>?</span>`;
+    card.onclick = () => showLockedMessage();
+    container.appendChild(card);
+  }
+}
+
+function showLockedMessage() {
+  const modal = document.createElement("div");
+  modal.className = "modal";
+  modal.innerHTML = `
+    <div class="modal-content">
+      <p>👉 Bạn hãy đến chơi trò chơi từ vựng để lấy thêm từ nhé!</p>
+      <button onclick="closeModal(this)">Ok</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function closeModal(btn) {
+  btn.closest(".modal").remove();
+}
+
+// Gọi hàm updateFlashcards() ngay từ đầu để hiển thị ô ?
+updateFlashcards();
+
+
+function openAccount() {
+  const loggedIn = localStorage.getItem("loggedIn");
+  if (loggedIn === "true") {
+    showSection("level"); // Nếu đã đăng nhập → mở level
+  } else {
+    showSection("account"); // Nếu chưa → mở form đăng nhập / đăng ký
+  }
+}
+
+function toggleForms(type) {
+  document.getElementById("registerForm").style.display = (type === "register") ? "block" : "none";
+  document.getElementById("loginForm").style.display = (type === "login") ? "block" : "none";
+}
+
+function register() {
+  const fullname = document.getElementById("fullname").value;
+  const nickname = document.getElementById("nickname").value;
+  const pass = document.getElementById("password").value;
+  const confirm = document.getElementById("confirmPassword").value;
+
+  if (pass !== confirm) {
+    alert("Mật khẩu không khớp!");
+    return;
+  }
+
+  localStorage.setItem("account", JSON.stringify({ fullname, nickname, pass }));
+  alert("Đăng ký thành công! Vui lòng đăng nhập.");
+  toggleForms("login");
+}
+
+function login() {
+  const acc = JSON.parse(localStorage.getItem("account"));
+  const nickname = document.getElementById("loginNickname").value;
+  const pass = document.getElementById("loginPassword").value;
+
+  if (acc && acc.nickname === nickname && acc.pass === pass) {
+    alert("Đăng nhập thành công!");
+    localStorage.setItem("loggedIn", "true");
+    showSection("level");
+  } else {
+    alert("Sai tài khoản hoặc mật khẩu!");
+  }
+}
+
+// Thêm nút đăng xuất (nếu cần)
+function logout() {
+  localStorage.removeItem("loggedIn");
+  alert("Bạn đã đăng xuất!");
+  showSection("account");
+}
+
+  function increaseLearnedWords() {
+  let data = JSON.parse(localStorage.getItem("gardenProgress")) || { learnedWords: 0, controlBoardDone: 0, dailyGoal: 30 };
+  data.learnedWords += 1;
+  localStorage.setItem("gardenProgress", JSON.stringify(data));
+  console.log("📚 Đã học thêm 1 từ. Tổng số:", data.learnedWords);
+}
+
+  function completeControlBoard() {
+  let data = JSON.parse(localStorage.getItem("gardenProgress")) || { learnedWords: 0, controlBoardDone: 0, dailyGoal: 30 };
+  data.controlBoardDone += 1;
+  localStorage.setItem("gardenProgress", JSON.stringify(data));
+  alert("🎯 Bạn đã hoàn thành một nhiệm vụ bảng điều khiển!");
+}
+
+
+    renderDictionary();
+  </script>
+      <audio id="sound-correct" src="sounds/correct.mp3"></audio>
+      <audio id="sound-wrong" src="sounds/wrong.mp3"></audio>
+</body>
+</html>
